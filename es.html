@@ -113,6 +113,11 @@
   .pledge .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#FFE3B8;min-width:96px}
   .pledge .v{font-size:14.5px;color:#fff}
   .soon .btn{background:#fff;color:var(--emerald-deep);margin-top:26px}
+  .wl-note{font-size:14.5px;color:rgba(255,255,255,.92);margin-top:24px;margin-bottom:12px}
+  .waitlist{display:flex;gap:10px;flex-wrap:wrap;max-width:440px}
+  .waitlist input{flex:1;min-width:190px;padding:13px 15px;border:none;border-radius:3px;font-family:var(--body);font-size:15px;color:var(--ink)}
+  .waitlist .btn{background:#fff;color:var(--emerald-deep);margin-top:0;white-space:nowrap}
+  .waitlist .btn:hover{background:var(--paper)}
   .soon .btn:hover{background:var(--paper)}
   .contact{text-align:center;padding-bottom:60px}
   .contact h2{font-size:clamp(30px,5vw,52px);margin-bottom:18px}
@@ -369,9 +374,13 @@
       <div class="soon-grid">
         <div>
           <span class="badge">Próximamente</span>
-          <h2>Un RMS pensado para apartamentos turísticos</h2>
-          <p>Estamos desarrollando un sistema de revenue management diseñado para alquileres vacacionales y de corta estancia, con un algoritmo que puedes entender. Cada precio llega con el motivo detrás: sin caja negra, sin conjeturas.</p>
-          <a href="#contacto" class="btn">Acceso anticipado</a>
+          <h2>Un RMS para apartamentos de alquiler de corta estancia (STR)</h2>
+          <p>Estamos desarrollando un sistema de revenue management diseñado específicamente para apartamentos de alquiler de corta estancia (STR), con un algoritmo que puedes entender. Cada precio llega con el motivo detrás: sin caja negra, sin conjeturas.</p>
+          <p class="wl-note">Apúntate a la lista de espera y sé de los primeros en saberlo cuando esté listo.</p>
+          <form class="waitlist" action="mailto:manuaccordion@gmail.com" method="POST" enctype="text/plain">
+            <input type="email" name="email" placeholder="tu@email.com" required>
+            <button type="submit" class="btn">Unirme a la lista</button>
+          </form>
         </div>
         <div class="pledges">
           <div class="pledge"><span class="k">Transparente</span><span class="v">Verás exactamente por qué se fija cada tarifa.</span></div>

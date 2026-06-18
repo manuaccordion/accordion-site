@@ -113,6 +113,11 @@
   .pledge .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#FFE3B8;min-width:96px}
   .pledge .v{font-size:14.5px;color:#fff}
   .soon .btn{background:#fff;color:var(--emerald-deep);margin-top:26px}
+  .wl-note{font-size:14.5px;color:rgba(255,255,255,.92);margin-top:24px;margin-bottom:12px}
+  .waitlist{display:flex;gap:10px;flex-wrap:wrap;max-width:440px}
+  .waitlist input{flex:1;min-width:190px;padding:13px 15px;border:none;border-radius:3px;font-family:var(--body);font-size:15px;color:var(--ink)}
+  .waitlist .btn{background:#fff;color:var(--emerald-deep);margin-top:0;white-space:nowrap}
+  .waitlist .btn:hover{background:var(--paper)}
   .soon .btn:hover{background:var(--paper)}
   .contact{text-align:center;padding-bottom:60px}
   .contact h2{font-size:clamp(30px,5vw,52px);margin-bottom:18px}
@@ -354,7 +359,7 @@
 
 <section id="servicios">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="eyebrow">Our services</span><h2>Strategy & architecture, no gestión diaria</h2></div>
+    <div class="sec-head reveal"><span class="eyebrow">Our services</span><h2>Strategy & architecture, not daily management</h2></div>
     <div class="services">
       <div class="card reveal"><div class="tag">Operating hotels & openings</div><h3>Initial revenue strategy & architecture</h3><p>Revenue vision, pricing structure, distribution and the processes to manage it. We train your team and leave the system ready to run.</p></div>
       <div class="card reveal"><div class="tag">Specialty</div><h3>New openings</h3><p>We take a new property to market with the right positioning and revenue architecture from day one.</p></div>
@@ -369,9 +374,13 @@
       <div class="soon-grid">
         <div>
           <span class="badge">Coming soon</span>
-          <h2>An RMS built for tourist apartments</h2>
-          <p>We're building a revenue management system designed for vacation and short-stay rentals, with an algorithm you can actually understand. Every price comes with the reason behind it: no black box, no guesswork.</p>
-          <a href="#contacto" class="btn">Get early access</a>
+          <h2>An RMS for short-term rental apartments (STR)</h2>
+          <p>We're building a revenue management system designed specifically for short-term rental apartments (STR), with an algorithm you can actually understand. Every price comes with the reason behind it: no black box, no guesswork.</p>
+          <p class="wl-note">Join the waiting list and be the first to know when it's ready.</p>
+          <form class="waitlist" action="mailto:manuaccordion@gmail.com" method="POST" enctype="text/plain">
+            <input type="email" name="email" placeholder="you@email.com" required>
+            <button type="submit" class="btn">Join the waiting list</button>
+          </form>
         </div>
         <div class="pledges">
           <div class="pledge"><span class="k">Transparent</span><span class="v">See exactly why each rate is set.</span></div>
