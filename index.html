@@ -11,7 +11,7 @@
   :root{
     --paper:#F5F2EB;--paper-2:#ECE7DB;--ink:#14242B;--ink-soft:#46565B;
     --emerald:#1E86C0;--emerald-deep:#135E8C;--brass:#AE7836;--line:#D9D1C1;
-    --display:'Bricolage Grotesque',serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;--maxw:1180px;
+    --display:'Bricolage Grotesque',serif;--body:'Inter',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;--maxw:1680px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -68,7 +68,7 @@
   .map-head .mstats{display:flex;gap:26px}
   .map-head .mstats .num{font-family:var(--mono);font-size:24px}
   .map-head .mstats .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-  .mapbox{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;overflow:hidden}
+  .mapbox{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px;overflow:hidden;max-width:1240px;margin:0 auto}
   .worldmap{width:100%;height:auto;display:block}
   .worldmap .land{fill:#DED7C8;stroke:var(--paper);stroke-width:.5}
   .mk .dotm{filter:drop-shadow(0 0 4px rgba(30,134,192,.5))}
@@ -83,8 +83,8 @@
   .sec-head h2{font-size:clamp(30px,4.4vw,46px);margin:18px 0 18px}
   .sec-head p{font-size:18px;color:var(--ink-soft)}
   .process{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line)}
-  .step{padding:30px 26px 30px 0;border-right:1px solid var(--line)}
-  .step:last-child{border-right:none;padding-right:0}
+  .step{padding:32px 36px;border-left:1px solid var(--line)}
+  .step:first-child{border-left:none;padding-left:0}
   .step .no{font-family:var(--mono);font-size:13px;color:var(--brass);letter-spacing:.1em}
   .step h3{font-size:20px;margin:14px 0 12px}
   .step p{font-size:15px;color:var(--ink-soft);line-height:1.55}
@@ -138,8 +138,8 @@
   .js .reveal.in{opacity:1;transform:none}
   @media(max-width:900px){
     .hero{padding:88px 0 64px}
-    .process{grid-template-columns:repeat(2,1fr)}
-    .step{border-right:none;border-bottom:1px solid var(--line);padding:26px 0}
+    .process{grid-template-columns:repeat(2,1fr);gap:0 44px}
+    .step{border-left:none;border-bottom:1px solid var(--line);padding:28px 0}
     .plan-grid{grid-template-columns:1fr}
     .services{grid-template-columns:1fr}
     .soon-grid{grid-template-columns:1fr;gap:30px}
