@@ -43,6 +43,19 @@ body{
   cursor:pointer;background:none;border:none;text-align:left}
 .logo:hover b{color:#5CDCFF}
 .logo b{color:var(--neon)}
+.lives{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.lives .lv-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.lives .hearts{font-size:14px;letter-spacing:2px;display:flex;gap:2px}
+.lives .hearts i{font-style:normal;color:var(--neon);
+  text-shadow:0 0 10px rgba(53,208,255,.7);animation:beat 1.6s ease-in-out infinite}
+.lives .hearts i:nth-child(2){animation-delay:.1s}
+.lives .hearts i:nth-child(3){animation-delay:.2s}
+.lives .hearts i:nth-child(4){animation-delay:.3s}
+.lives .hearts i:nth-child(5){animation-delay:.4s}
+.lives .hearts i:nth-child(6){animation-delay:.5s}
+.lives .hearts i:nth-child(7){animation-delay:.6s}
+.lives .hearts i.gone{color:#22374F;text-shadow:none;animation:none;opacity:.6}
+@keyframes beat{0%,100%{transform:scale(1)}18%{transform:scale(1.14)}36%{transform:scale(1)}}
 .navbtns{display:flex;gap:8px}
 .kbtn.sm{font-size:9px;padding:10px 11px;box-shadow:0 3px 0 #12688F}
 .kbtn.alt.sm{box-shadow:0 3px 0 rgba(53,208,255,.25)}
@@ -242,7 +255,11 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
   letter-spacing:.1em;text-transform:uppercase;color:var(--dim);opacity:.55}
 
 /* CONTACT */
-.contact-grid{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.contact-grid{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+.mailbox{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel);
+  border:2px solid var(--grid);border-radius:4px;padding:16px 18px;max-width:620px}
+.mailbox .mb-lbl{font-family:var(--px);font-size:9px;color:var(--amber)}
+.mailbox code{font-family:var(--mono);font-size:15px;color:var(--neon);user-select:all;flex:1;min-width:180px}
 
 /* end-of-screen navigation */
 .endnav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;
@@ -258,6 +275,22 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .pad button.act{width:auto;padding:0 16px;background:var(--neon);color:var(--void);border-color:var(--neon)}
 .pad button:active{transform:translateY(2px)}
 
+/* ---- GAME OVER ---- */
+.gameover{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;
+  background:rgba(3,6,12,.92);padding:24px}
+.gameover.on{display:flex;animation:goIn .3s ease}
+@keyframes goIn{from{opacity:0}to{opacity:1}}
+.go-box{max-width:480px;width:100%;text-align:center;background:var(--panel);
+  border:2px solid var(--pink);border-radius:4px;padding:34px 26px;
+  box-shadow:0 0 60px -10px rgba(255,77,157,.5)}
+.go-title{font-family:var(--px);font-size:clamp(18px,4.4vw,30px);color:var(--pink);
+  text-shadow:0 0 22px rgba(255,77,157,.7);margin-bottom:18px;animation:flick 1.5s steps(2,start) infinite}
+@keyframes flick{92%{opacity:1}94%{opacity:.35}96%{opacity:1}}
+.go-note{font-size:14.5px;color:var(--dim);line-height:1.7;margin-bottom:24px}
+.go-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.shake{animation:shake .32s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
 footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
 .foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
 .foot span,.foot a{font-family:var(--mono);font-size:11px;color:var(--dim);text-decoration:none}
@@ -271,6 +304,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   .hud-in{height:54px}
   .logo{font-size:9px}
   .score{display:none}
+  .lives .lv-lbl{display:none}
+  .lives .hearts{font-size:11px;letter-spacing:1px}
   .navbtns{display:none!important}
   .menu{grid-template-columns:1fr}
   .slot.sel::before{display:none}
@@ -298,10 +333,13 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   <div class="shell hud-in">
     <div class="logo" id="homeLogo" role="button" tabindex="0" title="Inicio">Accordion<br><b>Advisory</b></div>
     <div class="hud-right">
+      <div class="lives" title="Lives">
+        <span class="lv-lbl">Lives</span>
+        <span class="hearts" id="hearts"></span>
+      </div>
       <div class="score">
         <div><b id="creditNum">00</b>Crédito</div>
         <div><b>10</b>Países</div>
-        <div><b>4</b>Continentes</div>
         <div><b>120+</b>Propiedades</div>
       </div>
       <div class="navbtns" id="navBtns" style="display:none">
@@ -461,10 +499,15 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   <section class="screen" id="contact">
     <div class="shead"><h2 class="h2">Hablemos</h2></div>
     <p class="lead">Cuéntanos sobre tu hotel —o tu próxima apertura— y te mostramos la oportunidad.</p>
+    <div class="mailbox">
+      <span class="mb-lbl">Email</span>
+      <code id="mailAddr">manuaccordion@gmail.com</code>
+      <button class="kbtn amber sm" id="copyMail">Copy email</button>
+    </div>
     <div class="contact-grid">
-      <a class="kbtn" href="mailto:manuaccordion@gmail.com">Email</a>
-      <a class="kbtn alt" href="https://wa.link/rb3sn4">WhatsApp</a>
-      <a class="kbtn alt" href="https://www.linkedin.com/company/accordion-advisory/">LinkedIn</a>
+      <a class="kbtn" href="mailto:manuaccordion@gmail.com">Open mail app</a>
+      <a class="kbtn alt" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="kbtn alt" href="https://www.linkedin.com/company/accordion-advisory/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menú</button>
@@ -479,6 +522,17 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     </div>
   </footer>
 </main>
+
+<div class="gameover" id="gameOver" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="go-box">
+    <h2 class="go-title">Game over</h2>
+    <p class="go-note">Seven wild clicks and no target hit. Even a cat runs out of lives.</p>
+    <div class="go-btns">
+      <button class="kbtn amber" id="goAgain">▸ Play again</button>
+      <button class="kbtn alt" id="goCont">Continue</button>
+    </div>
+  </div>
+</div>
 
 <div class="pad" aria-hidden="true">
   <div class="pad-in">
@@ -528,7 +582,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     var prev = history.pop();
     show(prev || 'select', false);
   }
-  function goHome(){ history=[]; show('attract', false); }
+  function goHome(){ history=[]; show('attract', false); if(typeof resetLives==='function') resetLives(); }
 
   document.getElementById('startBtn').addEventListener('click',function(){ show('select'); });
   document.getElementById('menuBtn').addEventListener('click',function(){ show('select'); });
@@ -662,6 +716,45 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   });
   paint();
 
+  /* ---- LIVES: stray clicks in the menu cost a life ---- */
+  var MAXLIVES=7;
+  var lives=MAXLIVES;
+  var heartsEl=document.getElementById('hearts');
+  var goEl=document.getElementById('gameOver');
+
+  function drawHearts(){
+    heartsEl.innerHTML='';
+    for(var i=0;i<MAXLIVES;i++){
+      var h=document.createElement('i');
+      h.textContent='♥';
+      if(i>=lives) h.className='gone';
+      heartsEl.appendChild(h);
+    }
+  }
+  function resetLives(){ lives=MAXLIVES; drawHearts(); goEl.classList.remove('on'); goEl.setAttribute('aria-hidden','true'); }
+  function loseLife(){
+    if(lives<=0) return;
+    lives--;
+    drawHearts();
+    var sel=document.getElementById('select');
+    sel.classList.remove('shake'); void sel.offsetWidth; sel.classList.add('shake');
+    if(lives===0){
+      goEl.classList.add('on');
+      goEl.setAttribute('aria-hidden','false');
+      document.getElementById('goAgain').focus();
+    }
+  }
+  drawHearts();
+
+  // a click on the menu that misses every slot = a miss
+  document.getElementById('select').addEventListener('click', function(e){
+    if(lives<=0) return;
+    if(e.target.closest('.slot, button, a')) return;   // hit a target: no penalty
+    loseLife();
+  });
+  document.getElementById('goAgain').addEventListener('click', function(){ resetLives(); goHome(); });
+  document.getElementById('goCont').addEventListener('click', function(){ resetLives(); show('select', false); });
+
   /* ---- INSERT COIN: email capture ---- */
   // Emails go straight to Formspree (no mail app opens for the visitor).
   var FORM_ENDPOINT = 'https://formspree.io/f/xrenbqve';
@@ -739,6 +832,30 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       submitEmail(v, note, 'Crédito añadido — estás en la lista', wlForm.querySelector('button'));
       inp.value='';
     });
+  }
+
+  /* ---- copy email ---- */
+  var copyBtn=document.getElementById('copyMail');
+  if(copyBtn){
+    copyBtn.addEventListener('click', function(){
+      var addr=document.getElementById('mailAddr').textContent.trim();
+      var done=function(){
+        var old=copyBtn.textContent;
+        copyBtn.textContent='✓ '+'Copied';
+        setTimeout(function(){ copyBtn.textContent=old; }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(addr).then(done, function(){ fallback(addr, done); });
+      } else { fallback(addr, done); }
+    });
+  }
+  function fallback(txt, done){
+    var ta=document.createElement('textarea');
+    ta.value=txt; ta.setAttribute('readonly','');
+    ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){}
+    document.body.removeChild(ta);
   }
 
   /* ---- MAP TOUR ---- */
