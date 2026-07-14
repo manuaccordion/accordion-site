@@ -73,7 +73,8 @@ body{
 @keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* ATTRACT */
-#attract{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+#attract{display:none}
+#attract.on{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
   min-height:calc(100vh - 60px);padding:30px 0 60px}
 .marquee-tag{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--neon);margin-bottom:26px}
 .big{font-family:var(--px);line-height:1.5;letter-spacing:.02em}
@@ -152,6 +153,9 @@ body{
   transition:.15s}
 .scen button:hover{color:var(--txt);border-color:var(--neon-dim)}
 .scen button.on{background:var(--neon);color:var(--void);border-color:var(--neon);font-weight:600}
+.wtot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 16px}
+.wtot span{font-family:var(--px);font-size:10px;color:var(--void);background:var(--amber);
+  padding:6px 9px;border-radius:2px}
 .fac{margin-bottom:16px}
 .fac .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .fac .nm{font-family:var(--mono);font-size:12.5px;color:var(--txt);letter-spacing:.02em}
@@ -310,13 +314,13 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       <div class="pane">
         <h4>Market today</h4>
         <div class="scen" id="scen"><button data-sc="quiet">Quiet</button><button data-sc="normal" class="on">Normal</button><button data-sc="event">Event weekend</button></div>
-        <h4 style="margin-top:22px">Factor weights</h4>
-<div class="fac"><div class="top"><span class="nm">Daily Pickup</span><span class="wv" id="wv0">50</span></div><div class="ds">How many rooms sold today</div><input type="range" min="0" max="100" value="50" data-f="0" aria-label="Daily Pickup"></div>
-<div class="fac"><div class="top"><span class="nm">Pace Trend</span><span class="wv" id="wv1">50</span></div><div class="ds">Bookings vs the same point last year</div><input type="range" min="0" max="100" value="50" data-f="1" aria-label="Pace Trend"></div>
-<div class="fac"><div class="top"><span class="nm">Online Pricing</span><span class="wv" id="wv2">50</span></div><div class="ds">What the comp set is charging</div><input type="range" min="0" max="100" value="50" data-f="2" aria-label="Online Pricing"></div>
-<div class="fac"><div class="top"><span class="nm">Demand</span><span class="wv" id="wv3">50</span></div><div class="ds">Search and demand pressure</div><input type="range" min="0" max="100" value="50" data-f="3" aria-label="Demand"></div>
-<div class="fac"><div class="top"><span class="nm">AirDNA Market</span><span class="wv" id="wv4">50</span></div><div class="ds">Short-term rental market signal</div><input type="range" min="0" max="100" value="50" data-f="4" aria-label="AirDNA Market"></div>
-<div class="fac"><div class="top"><span class="nm">Reviews</span><span class="wv" id="wv5">50</span></div><div class="ds">Rating and reputation</div><input type="range" min="0" max="100" value="50" data-f="5" aria-label="Reviews"></div>
+        <div class="wtot"><h4 style="margin:0">Factor weights</h4><span id="wsum">100 / 100</span></div>
+<div class="fac"><div class="top"><span class="nm">Daily Pickup</span><span class="wv" id="wv0">17</span></div><div class="ds">How many rooms sold today</div><input type="range" min="0" max="100" value="17" data-f="0" aria-label="Daily Pickup"></div>
+<div class="fac"><div class="top"><span class="nm">Pace Trend</span><span class="wv" id="wv1">17</span></div><div class="ds">Bookings vs the same point last year</div><input type="range" min="0" max="100" value="17" data-f="1" aria-label="Pace Trend"></div>
+<div class="fac"><div class="top"><span class="nm">Online Pricing</span><span class="wv" id="wv2">17</span></div><div class="ds">What the comp set is charging</div><input type="range" min="0" max="100" value="17" data-f="2" aria-label="Online Pricing"></div>
+<div class="fac"><div class="top"><span class="nm">Demand</span><span class="wv" id="wv3">17</span></div><div class="ds">Search and demand pressure</div><input type="range" min="0" max="100" value="17" data-f="3" aria-label="Demand"></div>
+<div class="fac"><div class="top"><span class="nm">AirDNA Market</span><span class="wv" id="wv4">16</span></div><div class="ds">Short-term rental market signal</div><input type="range" min="0" max="100" value="16" data-f="4" aria-label="AirDNA Market"></div>
+<div class="fac"><div class="top"><span class="nm">Reviews</span><span class="wv" id="wv5">16</span></div><div class="ds">Rating and reputation</div><input type="range" min="0" max="100" value="16" data-f="5" aria-label="Reviews"></div>
         <button class="kbtn alt" id="resetW" style="margin-top:6px">Reset weights</button>
       </div>
       <div class="pane">
@@ -412,7 +416,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     event:  [14,11, 9,16, 7, 3]
   };
   var scenario = 'normal';
-  var weights  = [50,50,50,50,50,50];
+  var DEFAULT  = [17,17,17,17,16,16];   // always sums to 100
+  var weights  = DEFAULT.slice();
 
   var screens = ['attract','select','strategy','rms','map','contact'];
   var menuBtn = document.getElementById('menuBtn');
@@ -465,21 +470,53 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   var deltaEl=document.getElementById('delta');
   var whyEl=document.getElementById('why');
 
+  var sliders=Array.prototype.slice.call(document.querySelectorAll('input[type=range]'));
+  var sumEl=document.getElementById('wsum');
+
+  // keep the six weights adding up to exactly 100
+  function normalize(moved){
+    var v=Math.round(weights[moved]);
+    if(v>100) v=100; if(v<0) v=0;
+    weights[moved]=v;
+    var rest=100-v;
+    var others=[], othersSum=0;
+    for(var i=0;i<weights.length;i++){
+      if(i!==moved){ others.push(i); othersSum+=weights[i]; }
+    }
+    if(othersSum<=0){
+      // spread what's left evenly
+      var each=Math.floor(rest/others.length);
+      others.forEach(function(i){ weights[i]=each; });
+    } else {
+      others.forEach(function(i){ weights[i]=Math.round(weights[i]/othersSum*rest); });
+    }
+    // fix any rounding drift on the largest 'other'
+    var total=weights.reduce(function(a,b){return a+b;},0);
+    if(total!==100 && others.length){
+      var big=others[0];
+      others.forEach(function(i){ if(weights[i]>weights[big]) big=i; });
+      weights[big]+=100-total;
+      if(weights[big]<0) weights[big]=0;
+    }
+    paint();
+  }
+
+  function paint(){
+    sliders.forEach(function(r,i){
+      r.value=weights[i];
+      document.getElementById('wv'+i).textContent=weights[i];
+    });
+    var t=weights.reduce(function(a,b){return a+b;},0);
+    sumEl.textContent=t+' / 100';
+    compute();
+  }
+
   function compute(){
     var sig=SIGNALS[scenario];
-    var sum=weights.reduce(function(a,b){return a+b;},0);
-    if(sum===0){
-      rateEl.textContent='—';
-      deltaEl.className='delta flat';
-      deltaEl.textContent='All weights are zero — set at least one to get a rate.';
-      whyEl.innerHTML='';
-      return;
-    }
     var adj=0, contrib=[];
     for(var i=0;i<FACTORS.length;i++){
-      var c=(weights[i]/sum)*sig[i];       // % contribution
-      adj+=c;
-      contrib.push(c);
+      var c=(weights[i]/100)*sig[i];      // weights already total 100
+      adj+=c; contrib.push(c);
     }
     var rate=BASE*(1+adj/100);
     rateEl.textContent='€'+rate.toFixed(0);
@@ -493,19 +530,18 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       var eur=BASE*contrib[j]/100;
       var li=document.createElement('li');
       var pos=contrib[j]>=0;
-      li.innerHTML='<span>'+FACTORS[j]+' <small style="opacity:.65">· w'+weights[j]+'</small></span>'+
+      li.innerHTML='<span>'+FACTORS[j]+' <small style="opacity:.65">· '+weights[j]+'%</small></span>'+
                    '<b class="'+(pos?'up':'down')+'">'+(pos?'+':'')+eur.toFixed(1)+' €</b>'+
                    '<span class="cbar"><i style="width:'+(Math.abs(contrib[j])/max*100).toFixed(0)+'%;background:'+(pos?'#4CE0A8':'#FF4D9D')+'"></i></span>';
       whyEl.appendChild(li);
     }
   }
 
-  document.querySelectorAll('input[type=range]').forEach(function(r){
+  sliders.forEach(function(r){
     r.addEventListener('input', function(){
       var i=+r.dataset.f;
       weights[i]=+r.value;
-      document.getElementById('wv'+i).textContent=r.value;
-      compute();
+      normalize(i);
     });
   });
   document.getElementById('scen').addEventListener('click', function(e){
@@ -515,13 +551,10 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     compute();
   });
   document.getElementById('resetW').addEventListener('click', function(){
-    weights=[50,50,50,50,50,50];
-    document.querySelectorAll('input[type=range]').forEach(function(r,i){
-      r.value=50; document.getElementById('wv'+i).textContent='50';
-    });
-    compute();
+    weights=DEFAULT.slice();
+    paint();
   });
-  compute();
+  paint();
 
   /* ---- MAP TOUR ---- */
   var STOPS=[{'i': 0, 'name': 'Vietnam', 'x': 796.2, 'y': 240.4}, {'i': 1, 'name': 'Myanmar', 'x': 767.2, 'y': 220.6}, {'i': 2, 'name': 'Italy', 'x': 534.7, 'y': 138.3}, {'i': 3, 'name': 'Spain', 'x': 489.7, 'y': 143.2}, {'i': 4, 'name': 'Denmark', 'x': 534.9, 'y': 93.1}, {'i': 5, 'name': 'Sweden', 'x': 550.2, 'y': 81.1}, {'i': 6, 'name': 'Norway', 'x': 529.9, 'y': 79.2}, {'i': 7, 'name': 'Mexico', 'x': 258.8, 'y': 206.5}, {'i': 8, 'name': 'Dominican Rep.', 'x': 310.0, 'y': 215.0}, {'i': 9, 'name': 'Australia', 'x': 920.0, 'y': 387.3}];
