@@ -689,15 +689,17 @@
     // start only when the map is on screen; pause when it leaves or on hover
     var mo=new IntersectionObserver(function(es){
       es.forEach(function(e){
-        if(e.isIntersecting){ if(!timer){ i=0; timer=setTimeout(step, 600); } }
+        if(e.isIntersecting){ if(!timer && !paused){ i=0; timer=setTimeout(step, 600); } }
         else { clearTimeout(timer); timer=null; }
       });
     },{threshold:.35});
     mo.observe(svg);
 
     var box=document.querySelector('.mapbox');
-    box.addEventListener('mouseenter',function(){ paused=true; clearTimeout(timer); });
-    box.addEventListener('mouseleave',function(){ paused=false; if(!timer) timer=setTimeout(step, 400); });
+    function stop(){ clearTimeout(timer); timer=null; }
+    function start(d){ if(paused||timer) return; timer=setTimeout(step, d||400); }
+    box.addEventListener('mouseenter',function(){ paused=true; stop(); });
+    box.addEventListener('mouseleave',function(){ paused=false; start(400); });
   })();
 </script>
 
