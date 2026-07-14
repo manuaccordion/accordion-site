@@ -102,7 +102,32 @@ body{
   background:radial-gradient(circle at 35% 32%, #FFE18A, var(--amber));
   box-shadow:0 0 22px rgba(255,197,66,.55);transform-origin:50% 190%;animation:tilt 4.6s ease-in-out infinite}
 @keyframes tilt{0%,100%{transform:rotate(0)}22%{transform:rotate(-16deg)}52%{transform:rotate(13deg)}76%{transform:rotate(-7deg)}}
-/* logo strip */
+/* ---- INSERT COIN ---- */
+.coin{margin-top:34px;width:100%;max-width:440px;background:var(--panel);border:2px solid var(--grid);
+  border-radius:4px;padding:20px 20px 18px;text-align:left}
+.coin-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.slot-lbl{font-family:var(--px);font-size:10px;color:var(--amber);letter-spacing:.02em}
+.slot-line{flex:1;height:2px;background:var(--grid)}
+.slot-machine{position:relative;height:34px;margin-bottom:12px;display:flex;justify-content:center;align-items:flex-end}
+.slot-cut{width:76px;height:9px;border-radius:2px;background:#05090F;
+  border:2px solid var(--grid);box-shadow:inset 0 3px 8px rgba(0,0,0,.9)}
+.coin-drop{position:absolute;top:-6px;left:50%;width:22px;height:22px;margin-left:-11px;border-radius:50%;
+  background:radial-gradient(circle at 35% 32%, #FFE99A, var(--amber));
+  border:2px solid #A8792A;opacity:0}
+.coin-drop.go{animation:dropcoin .75s cubic-bezier(.5,.05,.7,1) forwards}
+@keyframes dropcoin{
+  0%{opacity:1;transform:translateY(-16px) rotateY(0deg) scale(1)}
+  70%{opacity:1;transform:translateY(22px) rotateY(360deg) scale(.9)}
+  100%{opacity:0;transform:translateY(30px) rotateY(540deg) scaleX(.15)}
+}
+.coin-form{display:flex;gap:8px;flex-wrap:wrap}
+.coin-form input{flex:1;min-width:170px;background:#0A1524;border:2px solid var(--grid);border-radius:2px;
+  color:var(--txt);font-family:var(--mono);font-size:13px;padding:12px}
+.coin-form input:focus{outline:none;border-color:var(--amber)}
+.coin-note{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:10px;line-height:1.6}
+.coin-msg{font-family:var(--px);font-size:9px;line-height:1.7;margin-top:10px;min-height:1em}
+.coin-msg.ok{color:#4CE0A8}
+.coin-msg.bad{color:var(--pink)}
 .credits{margin-top:40px;width:100%}
 .credits .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
 .credits .row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px}
@@ -264,6 +289,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     <div class="logo" id="homeLogo" role="button" tabindex="0" title="Inicio">Accordion<br><b>Advisory</b></div>
     <div class="hud-right">
       <div class="score">
+        <div><b id="creditNum">00</b>Crédito</div>
         <div><b>10</b>Países</div>
         <div><b>4</b>Continentes</div>
         <div><b>120+</b>Propiedades</div>
@@ -290,6 +316,24 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       <button class="kbtn amber" id="startBtn">Pulsa start</button>
       <span class="blink">▶ Haz clic, toca o pulsa ENTER</span>
     </div>
+
+    <div class="coin" id="coin">
+      <div class="coin-head">
+        <span class="slot-lbl">▸ Inserta moneda</span>
+        <span class="slot-line"></span>
+      </div>
+      <div class="slot-machine">
+        <div class="coin-drop" id="coinDrop" aria-hidden="true"></div>
+        <div class="slot-cut" aria-hidden="true"></div>
+      </div>
+      <form class="coin-form" id="coinForm" novalidate>
+        <input type="email" id="coinEmail" placeholder="tu@email.com" aria-label="tu@email.com" required>
+        <button class="kbtn amber" type="submit">Inserta moneda</button>
+      </form>
+      <p class="coin-note">1 crédito = acceso anticipado al RMS y plaza en la lista de espera.</p>
+      <p class="coin-msg" id="coinMsg" role="status"></p>
+    </div>
+
     <div class="credits">
       <div class="lbl">Equipo formado en</div>
       <div class="row"><span>Meliá Hotels International</span><span>Iberostar Beachfront Resorts</span><span>Choice Hotels</span><span>Strawberry</span><span>PHI Hotels</span><span>Gueest</span></div>
@@ -348,10 +392,11 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
         <p class="demo-note">Demo con señales de ejemplo. El motor real lee tus datos en vivo.</p>
         <div class="wl">
           <p>¿Quieres ser de los primeros cuando esté listo?</p>
-          <form class="wl-form" action="mailto:manuaccordion@gmail.com" method="POST" enctype="text/plain">
+          <form class="wl-form" novalidate>
             <input type="email" name="email" placeholder="tu@email.com" required aria-label="email">
             <button class="kbtn amber" type="submit">Unirme a la lista</button>
           </form>
+          <p class="wl-msg coin-msg" role="status"></p>
         </div>
       </div>
     </div>
@@ -587,6 +632,71 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     paint();
   });
   paint();
+
+  /* ---- INSERT COIN: email capture ---- */
+  // Optional: paste a Formspree endpoint here to collect emails silently.
+  // Leave empty ('') and it opens the visitor's mail app instead.
+  var FORM_ENDPOINT = '';
+
+  var credits=0;
+  var coinForm=document.getElementById('coinForm');
+  var coinEmail=document.getElementById('coinEmail');
+  var coinMsg=document.getElementById('coinMsg');
+  var coinDrop=document.getElementById('coinDrop');
+  var creditNum=document.getElementById('creditNum');
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function addCredit(){
+    credits++;
+    creditNum.textContent=(credits<10?'0':'')+credits;
+    coinDrop.classList.remove('go'); void coinDrop.offsetWidth; coinDrop.classList.add('go');
+  }
+
+  function submitEmail(email, msgEl, okText){
+    if(FORM_ENDPOINT){
+      fetch(FORM_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({email:email, source:'accordion arcade'})
+      }).catch(function(){});
+    } else {
+      window.location.href='mailto:manuaccordion@gmail.com'
+        +'?subject='+encodeURIComponent('RMS early access')
+        +'&body='+encodeURIComponent(email);
+    }
+    msgEl.className='coin-msg ok';
+    msgEl.textContent='▸ '+okText;
+  }
+
+  coinForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v=coinEmail.value.trim();
+    if(!validEmail(v)){
+      coinMsg.className='coin-msg bad';
+      coinMsg.textContent='✕ '+'Ese email no parece correcto. Inténtalo de nuevo.';
+      coinEmail.focus();
+      return;
+    }
+    addCredit();
+    submitEmail(v, coinMsg, 'Crédito añadido — estás en la lista');
+    coinEmail.value='';
+  });
+
+  // the RMS waiting-list form uses the same coin mechanic
+  var wlForm=document.querySelector('.wl-form');
+  if(wlForm){
+    wlForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var inp=wlForm.querySelector('input[type=email]');
+      var v=inp.value.trim();
+      var note=wlForm.parentNode.querySelector('.wl-msg');
+      if(!validEmail(v)){ note.className='wl-msg coin-msg bad'; note.textContent='✕ '+'Ese email no parece correcto. Inténtalo de nuevo.'; return; }
+      addCredit();
+      submitEmail(v, note, 'Crédito añadido — estás en la lista');
+      inp.value='';
+    });
+  }
 
   /* ---- MAP TOUR ---- */
   var STOPS=[{'i': 0, 'name': 'Vietnam', 'x': 796.2, 'y': 240.4}, {'i': 1, 'name': 'Myanmar', 'x': 767.2, 'y': 220.6}, {'i': 2, 'name': 'Italia', 'x': 534.7, 'y': 138.3}, {'i': 3, 'name': 'España', 'x': 489.7, 'y': 143.2}, {'i': 4, 'name': 'Dinamarca', 'x': 534.9, 'y': 93.1}, {'i': 5, 'name': 'Suecia', 'x': 550.2, 'y': 81.1}, {'i': 6, 'name': 'Noruega', 'x': 529.9, 'y': 79.2}, {'i': 7, 'name': 'México', 'x': 258.8, 'y': 206.5}, {'i': 8, 'name': 'R. Dominicana', 'x': 310.0, 'y': 215.0}, {'i': 9, 'name': 'Australia', 'x': 920.0, 'y': 387.3}];
