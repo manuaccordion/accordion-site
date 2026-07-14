@@ -54,7 +54,6 @@ body{
 .lang{font-family:var(--px);font-size:9px;display:flex;gap:6px;align-items:center;color:var(--dim)}
 .lang a{color:var(--dim);text-decoration:none}
 .lang a:hover,.lang .on{color:var(--neon)}
-.hud .kbtn{display:none}
 
 /* ---------- buttons ---------- */
 .kbtn{
@@ -145,10 +144,10 @@ body{
 }
 .slot:hover,.slot.sel{border-color:var(--neon);transform:translateY(-4px);
   box-shadow:0 0 0 1px rgba(53,208,255,.3), 0 22px 40px -24px rgba(53,208,255,.6)}
-.slot .tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
-.slot .nm{font-family:var(--px);font-size:14px;line-height:1.6;margin:14px 0 12px;color:var(--txt)}
-.slot .ds{font-size:14.5px;color:var(--dim);line-height:1.6}
-.slot .go{font-family:var(--px);font-size:10px;color:var(--neon);margin-top:16px;display:inline-block;opacity:0;transform:translateX(-6px);transition:.15s}
+.slot .tag{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.slot .nm{display:block;font-family:var(--px);font-size:14px;line-height:1.65;margin:0 0 14px;color:var(--txt)}
+.slot .ds{display:block;font-size:14.5px;color:var(--dim);line-height:1.65}
+.slot .go{display:block;font-family:var(--px);font-size:10px;color:var(--neon);margin-top:18px;opacity:0;transform:translateX(-6px);transition:.15s}
 .slot:hover .go,.slot.sel .go{opacity:1;transform:none}
 .slot.sel::before{content:"▶";position:absolute;left:-22px;top:50%;transform:translateY(-50%);color:var(--neon);
   font-size:14px;animation:blink 1s steps(2,start) infinite}
@@ -237,6 +236,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 
 /* CONTACT */
 .contact-grid{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+
+/* end-of-screen navigation */
+.endnav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  margin-top:44px;padding-top:24px;border-top:2px solid var(--grid)}
 
 /* mobile pad */
 .pad{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
@@ -362,6 +365,10 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
 <div class="pcard"><div class="tag">Puente · temporal</div><h3>Revenue Task Force</h3><p>Cobertura temporal de revenue mientras encuentras o formas a tu responsable permanente. Una solución puente, no una gestión indefinida.</p><div class="stat"><div class="sl"><span>Rapidez</span><span>95</span></div><div class="bar"><i style="--w:95%"></i></div></div><div class="stat"><div class="sl"><span>Continuidad</span><span>85</span></div><div class="bar"><i style="--w:85%"></i></div></div><div class="stat"><div class="sl"><span>Traspaso</span><span>90</span></div><div class="bar"><i style="--w:90%"></i></div></div></div>
     </div>
     <div style="margin-top:30px"><a class="kbtn" href="#" data-go="contact">Hablemos</a></div>
+    <div class="endnav">
+      <button class="kbtn alt" data-go="select">Menú</button>
+      <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
+    </div>
   </section>
 
   <!-- RMS LAB -->
@@ -400,6 +407,10 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
         </div>
       </div>
     </div>
+    <div class="endnav">
+      <button class="kbtn alt" data-go="select">Menú</button>
+      <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
+    </div>
   </section>
 
   <!-- MAP -->
@@ -433,6 +444,10 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       <div class="map-cap"><span></span></div>
       <div class="map-hint">Pasa para pausar</div>
     </div>
+    <div class="endnav">
+      <button class="kbtn alt" data-go="select">Menú</button>
+      <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
+    </div>
   </section>
 
   <!-- CONTACT -->
@@ -443,6 +458,10 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       <a class="kbtn" href="mailto:manuaccordion@gmail.com">Email</a>
       <a class="kbtn alt" href="https://wa.link/rb3sn4">WhatsApp</a>
       <a class="kbtn alt" href="https://www.linkedin.com/company/accordion-advisory/">LinkedIn</a>
+    </div>
+    <div class="endnav">
+      <button class="kbtn alt" data-go="select">Menú</button>
+      <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
     </div>
   </section>
 
@@ -514,6 +533,9 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   });
   document.querySelectorAll('[data-go]').forEach(function(el){
     el.addEventListener('click',function(e){ e.preventDefault(); show(el.dataset.go); });
+  });
+  document.querySelectorAll('[data-home]').forEach(function(el){
+    el.addEventListener('click',function(e){ e.preventDefault(); goHome(); });
   });
 
   /* ---- keyboard: arrows to pick, ENTER to confirm, ESC back ---- */
