@@ -245,44 +245,73 @@
   .worldmap .land{transition:fill .3s ease}
   .mapbox:hover .land{fill:#D6CEBE}
 
-  /* ---- Pac-Man style title reveal: letters eaten/spat out one by one ---- */
-  .js .pac span{display:inline-block;opacity:0;transform:scale(.3) rotate(-12deg)}
-  .js .pac.in span{opacity:1;transform:none;
-    transition:opacity .32s cubic-bezier(.34,1.56,.64,1),transform .42s cubic-bezier(.34,1.56,.64,1)}
-  .pac .sp{display:inline-block;width:.28em}
 
-  /* ---- Pac-Man that crosses the page ---- */
-  .pacman-lane{position:fixed;left:0;right:0;bottom:16px;height:26px;z-index:40;pointer-events:none;overflow:hidden}
-  .pacman{position:absolute;left:-60px;bottom:0;width:26px;height:26px;will-change:transform;
-    animation:pacrun 18s linear infinite}
-  .pacman svg{width:100%;height:100%;display:block}
-  .pac-top,.pac-bot{fill:#F2C230;transform-origin:50% 50%}
-  .pac-top{animation:chompTop .32s ease-in-out infinite}
-  .pac-bot{animation:chompBot .32s ease-in-out infinite}
-  @keyframes chompTop{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-32deg)}}
-  @keyframes chompBot{0%,100%{transform:rotate(0deg)}50%{transform:rotate(32deg)}}
-  @keyframes pacrun{
-    0%{transform:translateX(0)}
-    100%{transform:translateX(calc(100vw + 90px))}
-  }
-  /* the dots it eats */
-  .pac-dots{position:absolute;left:0;right:0;bottom:11px;height:5px;display:flex;gap:34px;padding-left:14px}
-  .pac-dots i{width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:.16;flex:0 0 auto;
-    animation:eaten 18s linear infinite}
-  @keyframes eaten{
-    0%,4%{opacity:.16;transform:scale(1)}
-    6%{opacity:0;transform:scale(0)}
-    97%{opacity:0;transform:scale(0)}
-    100%{opacity:.16;transform:scale(1)}
-  }
-  @media(max-width:680px){
-    .pacman-lane{bottom:8px;height:20px}
-    .pacman{width:20px;height:20px}
-    .pac-dots{gap:24px;bottom:8px}
-  }
+
+  /* keep words intact while animating letters */
+  .pac .word{display:inline-block;white-space:nowrap}
+  .pac{position:relative}
   @media(prefers-reduced-motion:reduce){
-    .pacman-lane{display:none}
-    .js .pac span{opacity:1;transform:none}
+    .js .pac .ltr{opacity:1;transform:none}
+  }
+
+  /* ================= JOYSTICK / CONTROL THEME ================= */
+  /* words snap into place like a control locking on target */
+  .pac .word{display:inline-block;white-space:nowrap}
+  .js .pac .word{opacity:0;transform:translateY(14px)}
+  .js .pac.in .word{opacity:1;transform:none;
+    transition:opacity .5s cubic-bezier(.2,.9,.25,1),transform .55s cubic-bezier(.34,1.4,.5,1)}
+
+  /* blinking control cursor after each heading */
+  .title-cursor{display:inline-block;width:.5em;height:.12em;margin-left:.14em;vertical-align:baseline;
+    background:var(--emerald);opacity:0;border-radius:1px}
+  .js .pac.in .title-cursor{opacity:1;animation:blink 1.1s steps(2,start) infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+  /* ---- the joystick itself (RMS section) ---- */
+  .joy{display:flex;align-items:center;gap:16px;margin-top:26px}
+  .joy-stick{width:64px;height:64px;position:relative;flex:0 0 auto}
+  .joy-base{position:absolute;left:8px;bottom:0;width:48px;height:16px;border-radius:50%;
+    background:rgba(0,0,0,.28)}
+  .joy-shaft{position:absolute;left:29px;bottom:8px;width:6px;height:26px;border-radius:3px;
+    background:rgba(255,255,255,.55);transform-origin:50% 100%;
+    animation:tilt 4.2s ease-in-out infinite}
+  .joy-ball{position:absolute;left:20px;bottom:28px;width:24px;height:24px;border-radius:50%;
+    background:#F2C230;box-shadow:0 4px 12px rgba(0,0,0,.3);transform-origin:50% 150%;
+    animation:tilt 4.2s ease-in-out infinite}
+  @keyframes tilt{
+    0%,100%{transform:rotate(0deg)}
+    20%{transform:rotate(-17deg)}
+    45%{transform:rotate(13deg)}
+    70%{transform:rotate(-8deg)}
+  }
+  .joy-txt{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:rgba(255,255,255,.85)}
+
+  /* directional pad ticks that light up in sequence */
+  .dpad{display:inline-flex;gap:5px;margin-left:4px;vertical-align:middle}
+  .dpad i{width:7px;height:7px;border-radius:2px;background:rgba(255,255,255,.35);
+    animation:tick 2.4s ease-in-out infinite}
+  .dpad i:nth-child(2){animation-delay:.3s}
+  .dpad i:nth-child(3){animation-delay:.6s}
+  .dpad i:nth-child(4){animation-delay:.9s}
+  @keyframes tick{0%,100%{background:rgba(255,255,255,.3);transform:scale(1)}
+    50%{background:#F2C230;transform:scale(1.35)}}
+
+  /* cards react like a pressed button */
+  .card{transition:transform .18s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s}
+  .card:hover{transform:translateY(-6px)}
+  .card:active{transform:translateY(-1px) scale(.99)}
+  .btn:active{transform:translateY(1px) scale(.98)}
+
+  /* stats count-up feel: numbers nudge on view */
+  .js .stat .num{opacity:0;transform:translateY(10px) scale(.9)}
+  .js .stats.in .stat .num{opacity:1;transform:none;
+    transition:opacity .5s ease,transform .6s cubic-bezier(.34,1.5,.5,1)}
+
+  @media(prefers-reduced-motion:reduce){
+    .js .pac .word{opacity:1;transform:none}
+    .title-cursor,.joy-shaft,.joy-ball,.dpad i{animation:none}
+    .js .stat .num{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -466,6 +495,16 @@
           <span class="badge">Coming soon</span>
           <h2>An RMS for short-term rental apartments (STR)</h2>
           <p>We're building a revenue management system designed specifically for short-term rental apartments (STR), with an algorithm you can actually understand. Every price comes with the reason behind it: no black box, no guesswork.</p>
+          <div class="joy">
+            <div class="joy-stick" aria-hidden="true">
+              <span class="joy-base"></span>
+              <span class="joy-shaft"></span>
+              <span class="joy-ball"></span>
+            </div>
+            <span class="joy-txt">You're in control
+              <span class="dpad" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            </span>
+          </div>
           <p class="wl-note">Join the waiting list and be the first to know when it's ready.</p>
           <form class="waitlist" action="mailto:manuaccordion@gmail.com" method="POST" enctype="text/plain">
             <input type="email" name="email" placeholder="you@email.com" required>
@@ -515,6 +554,7 @@
   document.querySelectorAll('.services .card').forEach((el,i)=>{el.style.transitionDelay=(i*110)+'ms';io.observe(el)});
   // stagger section eyebrows
   document.querySelectorAll('.sec-head').forEach(el=>io.observe(el));
+  document.querySelectorAll('.stats').forEach(el=>io.observe(el));
   // country chips pop in sequence
   const cl=document.querySelector('.country-list');
   if(cl){
@@ -537,18 +577,6 @@
   if('ResizeObserver' in window){ new ResizeObserver(reportHeight).observe(document.body); }
   setTimeout(reportHeight, 1200);
 
-  // Pac-Man: build the dot trail
-  (function(){
-    var lane=document.getElementById('pacDots');
-    if(lane){
-      var n=Math.ceil(window.innerWidth/34)+2;
-      for(var i=0;i<n;i++){
-        var d=document.createElement('i');
-        d.style.animationDelay=(i*(18/n)).toFixed(2)+'s';
-        lane.appendChild(d);
-      }
-    }
-  })();
 
   // Pac-Man style title reveal: split every heading into letters
   (function(){
@@ -563,11 +591,25 @@
       function split(node, target){
         node.childNodes.forEach(function(c){
           if(c.nodeType===3){
-            c.textContent.split('').forEach(function(ch){
-              var s=document.createElement('span');
-              if(ch===' '){ s.className='sp'; s.innerHTML='&nbsp;'; }
-              else s.textContent=ch;
-              target.appendChild(s);
+            // split into words so lines never break mid-word
+            var parts=c.textContent.split(/(\s+)/);
+            parts.forEach(function(part){
+              if(part==='') return;
+              if(/^\s+$/.test(part)){
+                var sp=document.createElement('span');
+                sp.className='sp'; sp.innerHTML='&nbsp;';
+                target.appendChild(sp);
+                return;
+              }
+              var w=document.createElement('span');
+              w.className='word';
+              part.split('').forEach(function(ch){
+                var s=document.createElement('span');
+                s.className='ltr';
+                s.textContent=ch;
+                w.appendChild(s);
+              });
+              target.appendChild(w);
             });
           } else if(c.nodeType===1){
             var clone=c.cloneNode(false);
@@ -581,23 +623,18 @@
       el.appendChild(frag);
       // stagger each letter
       var i=0;
-      el.querySelectorAll('span').forEach(function(s){
-        s.style.transitionDelay=(i*36)+'ms'; i++;
+      el.querySelectorAll('.word').forEach(function(w){
+        w.style.transitionDelay=(i*70)+'ms'; i++;
       });
+      var cur=document.createElement('span');
+      cur.className='title-cursor';
+      cur.style.transitionDelay=(i*70)+'ms';
+      el.appendChild(cur);
       io.observe(el);
     });
   })();
 </script>
 
-<div class="pacman-lane" aria-hidden="true">
-  <div class="pac-dots" id="pacDots"></div>
-  <div class="pacman">
-    <svg viewBox="0 0 100 100">
-      <path class="pac-top" d="M50,50 L100,25 A50,50 0 0,0 0,50 Z"/>
-      <path class="pac-bot" d="M50,50 L0,50 A50,50 0 0,0 100,75 Z"/>
-    </svg>
-  </div>
-</div>
 
 </body>
 </html>
