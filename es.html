@@ -244,6 +244,46 @@
   .mk:hover .dotm{r:6}
   .worldmap .land{transition:fill .3s ease}
   .mapbox:hover .land{fill:#D6CEBE}
+
+  /* ---- Pac-Man style title reveal: letters eaten/spat out one by one ---- */
+  .js .pac span{display:inline-block;opacity:0;transform:scale(.3) rotate(-12deg)}
+  .js .pac.in span{opacity:1;transform:none;
+    transition:opacity .32s cubic-bezier(.34,1.56,.64,1),transform .42s cubic-bezier(.34,1.56,.64,1)}
+  .pac .sp{display:inline-block;width:.28em}
+
+  /* ---- Pac-Man that crosses the page ---- */
+  .pacman-lane{position:fixed;left:0;right:0;bottom:16px;height:26px;z-index:40;pointer-events:none;overflow:hidden}
+  .pacman{position:absolute;left:-60px;bottom:0;width:26px;height:26px;will-change:transform;
+    animation:pacrun 18s linear infinite}
+  .pacman svg{width:100%;height:100%;display:block}
+  .pac-top,.pac-bot{fill:#F2C230;transform-origin:50% 50%}
+  .pac-top{animation:chompTop .32s ease-in-out infinite}
+  .pac-bot{animation:chompBot .32s ease-in-out infinite}
+  @keyframes chompTop{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-32deg)}}
+  @keyframes chompBot{0%,100%{transform:rotate(0deg)}50%{transform:rotate(32deg)}}
+  @keyframes pacrun{
+    0%{transform:translateX(0)}
+    100%{transform:translateX(calc(100vw + 90px))}
+  }
+  /* the dots it eats */
+  .pac-dots{position:absolute;left:0;right:0;bottom:11px;height:5px;display:flex;gap:34px;padding-left:14px}
+  .pac-dots i{width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:.16;flex:0 0 auto;
+    animation:eaten 18s linear infinite}
+  @keyframes eaten{
+    0%,4%{opacity:.16;transform:scale(1)}
+    6%{opacity:0;transform:scale(0)}
+    97%{opacity:0;transform:scale(0)}
+    100%{opacity:.16;transform:scale(1)}
+  }
+  @media(max-width:680px){
+    .pacman-lane{bottom:8px;height:20px}
+    .pacman{width:20px;height:20px}
+    .pac-dots{gap:24px;bottom:8px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .pacman-lane{display:none}
+    .js .pac span{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
@@ -253,7 +293,6 @@
     <div class="brand">Accordion&nbsp;<b>Advisory</b></div>
     <nav class="nav-links" id="nav">
       <a href="#mapa">Dónde trabajamos</a>
-      <a href="#servicios">Cómo trabajamos</a>
       <a href="#servicios">Servicios</a>
       <a href="#rms">Nuevo RMS</a>
       <a href="#contacto">Contacto</a>
@@ -283,7 +322,7 @@
     <p class="lead">Damos visión y montamos la arquitectura inicial de revenue —procesos, estrategia y formación— para hoteles en marcha y también nuevas aperturas. Ponemos los cimientos; a partir de ahí, el día a día queda en manos de tu equipo.</p>
     <div class="hero-cta">
       <a href="#contacto" class="btn">Hablemos</a>
-      <a href="#servicios" class="btn btn-ghost">Cómo trabajamos</a>
+      <a href="#servicios" class="btn btn-ghost">Nuestros servicios</a>
     </div>
     <div class="stats">
       <div class="stat"><div class="num">120+</div><div class="lbl">Propiedades</div></div>
@@ -497,6 +536,68 @@
   window.addEventListener('resize', reportHeight);
   if('ResizeObserver' in window){ new ResizeObserver(reportHeight).observe(document.body); }
   setTimeout(reportHeight, 1200);
+
+  // Pac-Man: build the dot trail
+  (function(){
+    var lane=document.getElementById('pacDots');
+    if(lane){
+      var n=Math.ceil(window.innerWidth/34)+2;
+      for(var i=0;i<n;i++){
+        var d=document.createElement('i');
+        d.style.animationDelay=(i*(18/n)).toFixed(2)+'s';
+        lane.appendChild(d);
+      }
+    }
+  })();
+
+  // Pac-Man style title reveal: split every heading into letters
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var heads=document.querySelectorAll('h1, .sec-head h2, .soon h2, .contact h2, .map-head h2');
+    heads.forEach(function(el){
+      if(el.dataset.pac) return;
+      el.dataset.pac='1';
+      el.classList.add('pac');
+      var frag=document.createDocumentFragment();
+      // walk child nodes so <em> keeps its colour
+      function split(node, target){
+        node.childNodes.forEach(function(c){
+          if(c.nodeType===3){
+            c.textContent.split('').forEach(function(ch){
+              var s=document.createElement('span');
+              if(ch===' '){ s.className='sp'; s.innerHTML='&nbsp;'; }
+              else s.textContent=ch;
+              target.appendChild(s);
+            });
+          } else if(c.nodeType===1){
+            var clone=c.cloneNode(false);
+            split(c, clone);
+            target.appendChild(clone);
+          }
+        });
+      }
+      split(el, frag);
+      el.innerHTML='';
+      el.appendChild(frag);
+      // stagger each letter
+      var i=0;
+      el.querySelectorAll('span').forEach(function(s){
+        s.style.transitionDelay=(i*36)+'ms'; i++;
+      });
+      io.observe(el);
+    });
+  })();
 </script>
+
+<div class="pacman-lane" aria-hidden="true">
+  <div class="pac-dots" id="pacDots"></div>
+  <div class="pacman">
+    <svg viewBox="0 0 100 100">
+      <path class="pac-top" d="M50,50 L100,25 A50,50 0 0,0 0,50 Z"/>
+      <path class="pac-bot" d="M50,50 L0,50 A50,50 0 0,0 100,75 Z"/>
+    </svg>
+  </div>
+</div>
+
 </body>
 </html>
