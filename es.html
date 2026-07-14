@@ -634,9 +634,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   paint();
 
   /* ---- INSERT COIN: email capture ---- */
-  // Optional: paste a Formspree endpoint here to collect emails silently.
-  // Leave empty ('') and it opens the visitor's mail app instead.
-  var FORM_ENDPOINT = '';
+  // Emails go straight to Formspree (no mail app opens for the visitor).
+  var FORM_ENDPOINT = 'https://formspree.io/f/xrenbqve';
 
   var credits=0;
   var coinForm=document.getElementById('coinForm');
@@ -650,23 +649,38 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   function addCredit(){
     credits++;
     creditNum.textContent=(credits<10?'0':'')+credits;
-    coinDrop.classList.remove('go'); void coinDrop.offsetWidth; coinDrop.classList.add('go');
   }
 
-  function submitEmail(email, msgEl, okText){
-    if(FORM_ENDPOINT){
-      fetch(FORM_ENDPOINT, {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({email:email, source:'accordion arcade'})
-      }).catch(function(){});
-    } else {
+  function submitEmail(email, msgEl, okText, btn){
+    msgEl.className='coin-msg';
+    msgEl.textContent='▸ ...';
+    if(btn) btn.disabled=true;
+
+    if(!FORM_ENDPOINT){
       window.location.href='mailto:manuaccordion@gmail.com'
         +'?subject='+encodeURIComponent('RMS early access')
         +'&body='+encodeURIComponent(email);
+      msgEl.className='coin-msg ok';
+      msgEl.textContent='▸ '+okText;
+      if(btn) btn.disabled=false;
+      return;
     }
-    msgEl.className='coin-msg ok';
-    msgEl.textContent='▸ '+okText;
+
+    fetch(FORM_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({email:email, source:'accordion arcade'})
+    }).then(function(res){
+      if(!res.ok) throw new Error('bad response');
+      addCredit();
+      msgEl.className='coin-msg ok';
+      msgEl.textContent='▸ '+okText;
+    }).catch(function(){
+      msgEl.className='coin-msg bad';
+      msgEl.textContent='✕ '+'La máquina se atascó. Inténtalo en un momento.';
+    }).then(function(){
+      if(btn) btn.disabled=false;
+    });
   }
 
   coinForm.addEventListener('submit', function(e){
@@ -678,8 +692,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       coinEmail.focus();
       return;
     }
-    addCredit();
-    submitEmail(v, coinMsg, 'Crédito añadido — estás en la lista');
+    coinDrop.classList.remove('go'); void coinDrop.offsetWidth; coinDrop.classList.add('go');
+    submitEmail(v, coinMsg, 'Crédito añadido — estás en la lista', coinForm.querySelector('button'));
     coinEmail.value='';
   });
 
@@ -692,8 +706,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       var v=inp.value.trim();
       var note=wlForm.parentNode.querySelector('.wl-msg');
       if(!validEmail(v)){ note.className='wl-msg coin-msg bad'; note.textContent='✕ '+'Ese email no parece correcto. Inténtalo de nuevo.'; return; }
-      addCredit();
-      submitEmail(v, note, 'Crédito añadido — estás en la lista');
+      coinDrop.classList.remove('go'); void coinDrop.offsetWidth; coinDrop.classList.add('go');
+      submitEmail(v, note, 'Crédito añadido — estás en la lista', wlForm.querySelector('button'));
       inp.value='';
     });
   }
