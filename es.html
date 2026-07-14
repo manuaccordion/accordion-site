@@ -736,8 +736,8 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     if(lives<=0) return;
     lives--;
     drawHearts();
-    var sel=document.getElementById('select');
-    sel.classList.remove('shake'); void sel.offsetWidth; sel.classList.add('shake');
+    var scr=document.getElementById(current) || document.getElementById('select');
+    scr.classList.remove('shake'); void scr.offsetWidth; scr.classList.add('shake');
     if(lives===0){
       goEl.classList.add('on');
       goEl.setAttribute('aria-hidden','false');
@@ -746,12 +746,14 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   }
   drawHearts();
 
-  // a click on the menu that misses every slot = a miss
-  document.getElementById('select').addEventListener('click', function(e){
+  // clicks that miss every target (menu and home screen) cost a life
+  function missHandler(e){
     if(lives<=0) return;
-    if(e.target.closest('.slot, button, a')) return;   // hit a target: no penalty
+    if(e.target.closest('.slot, button, a, input, label, form, .coin')) return; // hit a target: no penalty
     loseLife();
-  });
+  }
+  document.getElementById('select').addEventListener('click', missHandler);
+  document.getElementById('attract').addEventListener('click', missHandler);
   document.getElementById('goAgain').addEventListener('click', function(){ resetLives(); goHome(); });
   document.getElementById('goCont').addEventListener('click', function(){ resetLives(); show('select', false); });
 
