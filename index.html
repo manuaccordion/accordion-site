@@ -86,7 +86,14 @@ body{
 #attract .big{font-size:clamp(19px,4.4vw,44px);text-shadow:0 0 18px rgba(53,208,255,.45);margin-bottom:10px}
 #attract .big .c1{color:var(--txt)}
 #attract .big .c2{color:var(--neon)}
-.sub{font-size:16px;color:var(--dim);max-width:44ch;margin:18px auto 34px;line-height:1.65}
+.sub{font-family:var(--px);font-size:clamp(11px,1.9vw,17px);line-height:1.9;color:var(--txt);
+  max-width:22ch;margin:22px auto 34px;letter-spacing:.02em}
+.sub .w{display:inline-block;white-space:nowrap;opacity:0;transform:translateY(12px);
+  animation:wordin .55s cubic-bezier(.34,1.5,.5,1) forwards}
+.sub .caret{display:inline-block;width:.55em;height:.14em;background:var(--amber);
+  vertical-align:baseline;margin-left:.2em;animation:blink 1s steps(2,start) infinite}
+@keyframes wordin{to{opacity:1;transform:none}}
+.sub .hl{color:var(--neon);text-shadow:0 0 16px rgba(53,208,255,.5)}
 .start-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:16px}
 .blink{font-family:var(--px);font-size:12px;color:var(--amber);animation:blink 1.05s steps(2,start) infinite}
 @keyframes blink{50%{opacity:.15}}
@@ -314,7 +321,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     <div class="marquee-tag">Revenue strategy & architecture</div>
     <div class="joy" aria-hidden="true"><span class="base"></span><span class="shaft"></span><span class="ball"></span></div>
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
-    <p class="sub">Your hotel's initial revenue strategy: what we build and how.</p>
+    <p class="sub"><span class="w" style="animation-delay:0.25s">Your</span> <span class="w" style="animation-delay:0.37s">hotel's</span> <span class="w" style="animation-delay:0.49s">initial</span> <span class="w hl" style="animation-delay:0.61s">revenue</span> <span class="w hl" style="animation-delay:0.73s">strategy</span><span class="caret"></span></p>
     <div class="start-wrap">
       <button class="kbtn amber" id="startBtn">Press start</button>
       <span class="blink">▶ Click, tap or press ENTER</span>
