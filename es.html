@@ -113,18 +113,6 @@ body{
 .insert{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 /* joystick */
 /* DJ / mixer faders — echoes changing the RMS weights */
-.mixer{display:flex;gap:14px;justify-content:center;align-items:flex-end;height:96px;margin:6px auto 10px}
-.fader{position:relative;width:10px;height:82px;border-radius:5px;background:#0A1524;border:1px solid var(--grid)}
-.fader i{position:absolute;left:50%;width:26px;height:12px;margin-left:-13px;border-radius:2px;
-  background:linear-gradient(180deg,#FFE18A,var(--amber));box-shadow:0 0 12px rgba(255,197,66,.5);
-  bottom:0;animation:slide 3.4s ease-in-out infinite}
-.fader:nth-child(1) i{animation-delay:0s}
-.fader:nth-child(2) i{animation-delay:.4s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
-.fader:nth-child(3) i{animation-delay:.8s}
-.fader:nth-child(4) i{animation-delay:1.2s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
-.fader:nth-child(5) i{animation-delay:1.6s}
-.fader:nth-child(6) i{animation-delay:2s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
-@keyframes slide{0%,100%{bottom:8%}30%{bottom:64%}55%{bottom:30%}80%{bottom:78%}}
 /* ---- INSERT COIN ---- */
 .coin{margin-top:34px;width:100%;max-width:440px;background:var(--panel);border:2px solid var(--grid);
   border-radius:4px;padding:20px 20px 18px;text-align:left}
@@ -182,8 +170,8 @@ body{
   font-size:14px;animation:blink 1s steps(2,start) infinite}
 
 /* generic screen head */
-.shead{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:26px}
-.lead{font-size:16.5px;line-height:1.7;color:var(--dim);max-width:70ch;margin-bottom:34px}
+.shead{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:22px}
+.lead{font-size:16.5px;line-height:1.7;color:var(--dim);max-width:60ch;margin:0 auto 34px;text-align:center}
 .badge{font-family:var(--px);font-size:9px;color:var(--void);background:var(--amber);padding:7px 10px;border-radius:2px;display:inline-block;margin-bottom:14px}
 
 /* STRATEGY cards */
@@ -405,14 +393,6 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   <!-- ATTRACT -->
   <section class="screen on" id="attract">
     <div class="marquee-tag">Estrategia y arquitectura de Revenue</div>
-    <div class="mixer" aria-hidden="true">
-      <span class="fader"><i></i></span>
-      <span class="fader"><i></i></span>
-      <span class="fader"><i></i></span>
-      <span class="fader"><i></i></span>
-      <span class="fader"><i></i></span>
-      <span class="fader"><i></i></span>
-    </div>
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
     <p class="sub"><span class="w" style="animation-delay:0.25s">La</span> <span class="w hl" style="animation-delay:0.37s">estrategia</span> <span class="w" style="animation-delay:0.49s">inicial</span> <span class="w" style="animation-delay:0.61s">de</span> <span class="w hl" style="animation-delay:0.73s">revenue</span> <span class="w" style="animation-delay:0.85s">de</span> <span class="w" style="animation-delay:0.97s">tu</span> <span class="w" style="animation-delay:1.09s">hotel</span><span class="caret"></span></p>
     <div class="start-wrap">
@@ -479,8 +459,6 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     <p class="lead">Un sistema de revenue management para apartamentos de alquiler de corta estancia (STR), con un algoritmo que puedes entender. Mueve los pesos: la tarifa se mueve con ellos, y cada euro queda explicado.</p>
     <div class="lab">
       <div class="pane">
-        <h4>Mercado hoy</h4>
-        <div class="scen" id="scen"><button data-sc="quiet">Tranquilo</button><button data-sc="normal" class="on">Normal</button><button data-sc="event">Fin de semana con evento</button></div>
         <div class="wtot"><h4 style="margin:0">Pesos de los factores</h4><span id="wsum">100 / 100</span></div>
 <div class="fac"><div class="top"><span class="nm">Daily Pickup</span><span class="wv" id="wv0">17</span></div><div class="ds">Habitaciones vendidas hoy</div><input type="range" min="0" max="100" value="17" data-f="0" aria-label="Daily Pickup"></div>
 <div class="fac"><div class="top"><span class="nm">Pace Trend</span><span class="wv" id="wv1">17</span></div><div class="ds">Reservas frente al mismo punto del año pasado</div><input type="range" min="0" max="100" value="17" data-f="1" aria-label="Pace Trend"></div>
@@ -788,12 +766,6 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       weights[i]=+r.value;
       normalize(i);
     });
-  });
-  document.getElementById('scen').addEventListener('click', function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    scenario=b.dataset.sc;
-    this.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x===b); });
-    compute();
   });
   document.getElementById('resetW').addEventListener('click', function(){
     weights=DEFAULT.slice();
