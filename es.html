@@ -182,7 +182,6 @@ body{
 .h2 .c2{color:var(--neon)}
 .hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:32px}
 .menu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.menu .slot:last-child{grid-column:1/-1}
 .slot{
   text-align:left;background:var(--panel);border:2px solid var(--grid);border-radius:4px;
   padding:26px 24px;cursor:pointer;position:relative;color:var(--txt);
@@ -356,8 +355,13 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .shake{animation:shake .32s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
-footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
-.foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
+.foot-cta{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--grid)}
+.foot-q{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:32ch}
+.foot-meta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.kbtn.wa-main.sm{font-size:11px;padding:12px 16px}
+.foot{display:block;text-align:center}
 .foot span,.foot a{font-family:var(--mono);font-size:11px;color:var(--dim);text-decoration:none}
 .foot a:hover{color:var(--neon)}
 
@@ -468,7 +472,6 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
 <button class="slot" data-go="rms"><span class="tag">2 Jugadores</span><span class="nm">Laboratorio RMS</span><span class="ds">Mueve los pesos. Mira cómo cambia el precio. Y por qué.</span><span class="go">▶ Pulsa start</span></button>
 <button class="slot" data-go="players"><span class="tag">2 Jugadores</span><span class="nm">Elige jugador</span><span class="ds">Conoce al equipo. Elige tu personaje.</span><span class="go">▶ Pulsa start</span></button>
 <button class="slot" data-go="map"><span class="tag">Bonus</span><span class="nm">Mapa mundial</span><span class="ds">9 países. 3 continentes. Un equipo.</span><span class="go">▶ Pulsa start</span></button>
-<button class="slot" data-go="contact"><span class="tag">Contacto</span><span class="nm">Hablemos</span><span class="ds">Cuéntanos sobre tu hotel o tu próxima apertura.</span><span class="go">▶ Pulsa start</span></button>
     </div>
   </section>
 
@@ -481,7 +484,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
 <div class="pcard"><div class="tag">Especialización</div><h3>Nuevas aperturas</h3><p>Llevamos una nueva propiedad al mercado con el posicionamiento y la arquitectura de revenue correctos desde el primer día.</p><div class="stat"><div class="sl"><span>Posicionamiento</span><span>95</span></div><div class="bar"><i style="--w:95%"></i></div></div><div class="stat"><div class="sl"><span>Comp set y demanda</span><span>90</span></div><div class="bar"><i style="--w:90%"></i></div></div><div class="stat"><div class="sl"><span>Plan de apertura</span><span>80</span></div><div class="bar"><i style="--w:80%"></i></div></div></div>
 <div class="pcard"><div class="tag">Puente · temporal</div><h3>Revenue Task Force</h3><p>Cobertura temporal de revenue mientras encuentras o formas a tu responsable permanente. Una solución puente, no una gestión indefinida.</p><div class="stat"><div class="sl"><span>Rapidez</span><span>95</span></div><div class="bar"><i style="--w:95%"></i></div></div><div class="stat"><div class="sl"><span>Continuidad</span><span>85</span></div><div class="bar"><i style="--w:85%"></i></div></div><div class="stat"><div class="sl"><span>Traspaso</span><span>90</span></div><div class="bar"><i style="--w:90%"></i></div></div></div>
     </div>
-    <div style="margin-top:30px"><a class="kbtn" href="#" data-go="contact">Hablemos</a></div>
+    <div style="margin-top:30px"><a class="kbtn wa-main" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">▸ Escríbenos por WhatsApp</a></div>
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menú</button>
       <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
@@ -597,26 +600,18 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section class="screen" id="contact">
-    <div class="shead"><h2 class="h2">Hablemos</h2></div>
-    <p class="lead">Cuéntanos sobre tu hotel —o tu próxima apertura— y te mostramos la oportunidad.</p>
-    <div class="contact-grid">
-      <a class="kbtn wa-main" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">▸ Escríbenos por WhatsApp</a>
-      <a class="kbtn alt" target="_blank" rel="noopener"
-         href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">Email</a>
-    </div>
-    <p class="c-hint">¿Sin app de correo? Usa Gmail o copia la dirección.</p>
-    <div class="endnav">
-      <button class="kbtn alt" data-go="select">Menú</button>
-      <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
-    </div>
-  </section>
-
   <footer>
     <div class="foot">
-      <span>© 2026 Accordion Advisory</span>
-      <a href="mailto:manuaccordion@gmail.com">manuaccordion@gmail.com</a>
+      <div class="foot-cta">
+        <span class="foot-q">Cuéntanos sobre tu hotel —o tu próxima apertura— y te mostramos la oportunidad.</span>
+        <a class="kbtn wa-main sm" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">▸ Escríbenos por WhatsApp</a>
+        <a class="kbtn alt sm" target="_blank" rel="noopener"
+           href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">Email</a>
+      </div>
+      <div class="foot-meta">
+        <span>© 2026 Accordion Advisory</span>
+        <a href="mailto:manuaccordion@gmail.com">manuaccordion@gmail.com</a>
+      </div>
     </div>
   </footer>
 </main>
@@ -657,7 +652,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   var DEFAULT  = [17,17,17,17,16,16];   // always sums to 100
   var weights  = DEFAULT.slice();
 
-  var screens = ['attract','select','strategy','rms','players','map','contact'];
+  var screens = ['attract','select','strategy','rms','players','map'];
   var navBtns = document.getElementById('navBtns');
   var history = [];
   var current = 'attract';
