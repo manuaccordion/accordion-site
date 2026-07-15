@@ -112,15 +112,19 @@ body{
 @keyframes blink{50%{opacity:.15}}
 .insert{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
 /* joystick */
-.joy{width:96px;height:96px;position:relative;margin:6px auto 4px}
-.joy .base{position:absolute;left:12px;bottom:0;width:72px;height:22px;border-radius:50%;
-  background:#0A1A2C;border:2px solid var(--grid)}
-.joy .shaft{position:absolute;left:44px;bottom:12px;width:8px;height:40px;border-radius:4px;
-  background:linear-gradient(180deg,#9FB6CC,#4C6076);transform-origin:50% 100%;animation:tilt 4.6s ease-in-out infinite}
-.joy .ball{position:absolute;left:32px;bottom:44px;width:32px;height:32px;border-radius:50%;
-  background:radial-gradient(circle at 35% 32%, #FFE18A, var(--amber));
-  box-shadow:0 0 22px rgba(255,197,66,.55);transform-origin:50% 190%;animation:tilt 4.6s ease-in-out infinite}
-@keyframes tilt{0%,100%{transform:rotate(0)}22%{transform:rotate(-16deg)}52%{transform:rotate(13deg)}76%{transform:rotate(-7deg)}}
+/* DJ / mixer faders — echoes changing the RMS weights */
+.mixer{display:flex;gap:14px;justify-content:center;align-items:flex-end;height:96px;margin:6px auto 10px}
+.fader{position:relative;width:10px;height:82px;border-radius:5px;background:#0A1524;border:1px solid var(--grid)}
+.fader i{position:absolute;left:50%;width:26px;height:12px;margin-left:-13px;border-radius:2px;
+  background:linear-gradient(180deg,#FFE18A,var(--amber));box-shadow:0 0 12px rgba(255,197,66,.5);
+  bottom:0;animation:slide 3.4s ease-in-out infinite}
+.fader:nth-child(1) i{animation-delay:0s}
+.fader:nth-child(2) i{animation-delay:.4s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
+.fader:nth-child(3) i{animation-delay:.8s}
+.fader:nth-child(4) i{animation-delay:1.2s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
+.fader:nth-child(5) i{animation-delay:1.6s}
+.fader:nth-child(6) i{animation-delay:2s;background:linear-gradient(180deg,#8FE3FF,var(--neon))}
+@keyframes slide{0%,100%{bottom:8%}30%{bottom:64%}55%{bottom:30%}80%{bottom:78%}}
 /* ---- INSERT COIN ---- */
 .coin{margin-top:34px;width:100%;max-width:440px;background:var(--panel);border:2px solid var(--grid);
   border-radius:4px;padding:20px 20px 18px;text-align:left}
@@ -147,6 +151,10 @@ body{
 .coin-msg{font-family:var(--px);font-size:9px;line-height:1.7;margin-top:10px;min-height:1em}
 .coin-msg.ok{color:#4CE0A8}
 .coin-msg.bad{color:var(--pink)}
+.big-start{font-size:16px;padding:20px 40px;box-shadow:0 6px 0 #A8792A,0 14px 28px -10px rgba(255,197,66,.7)}
+.big-start:active{transform:translateY(5px);box-shadow:0 1px 0 #A8792A}
+.coin-tag{font-family:var(--px);font-size:8px;color:var(--void);background:var(--neon);
+  padding:5px 8px;border-radius:2px;white-space:nowrap}
 .credits{margin-top:40px;width:100%}
 .credits .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:14px}
 .credits .row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px}
@@ -396,19 +404,27 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   <!-- ATTRACT -->
   <section class="screen on" id="attract">
     <div class="marquee-tag">Estrategia y arquitectura de Revenue</div>
-    <div class="joy" aria-hidden="true"><span class="base"></span><span class="shaft"></span><span class="ball"></span></div>
+    <div class="mixer" aria-hidden="true">
+      <span class="fader"><i></i></span>
+      <span class="fader"><i></i></span>
+      <span class="fader"><i></i></span>
+      <span class="fader"><i></i></span>
+      <span class="fader"><i></i></span>
+      <span class="fader"><i></i></span>
+    </div>
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
     <p class="sub"><span class="w" style="animation-delay:0.25s">La</span> <span class="w hl" style="animation-delay:0.37s">estrategia</span> <span class="w" style="animation-delay:0.49s">inicial</span> <span class="w" style="animation-delay:0.61s">de</span> <span class="w hl" style="animation-delay:0.73s">revenue</span> <span class="w" style="animation-delay:0.85s">de</span> <span class="w" style="animation-delay:0.97s">tu</span> <span class="w" style="animation-delay:1.09s">hotel</span><span class="caret"></span></p>
     <div class="start-wrap">
-      <button class="kbtn amber" id="startBtn">Pulsa start</button>
-      <span class="blink">▶ Haz clic, toca o pulsa ENTER</span>
+      <button class="kbtn amber big-start" id="startBtn">Pulsa start</button>
     </div>
 
     <div class="coin" id="coin">
       <div class="coin-head">
         <span class="slot-lbl">▸ Inserta moneda</span>
         <span class="slot-line"></span>
+        <span class="coin-tag">desbloquea RMS Lab</span>
       </div>
+      <p class="coin-note">Deja tu email para tener acceso anticipado al RMS Lab y entrar en la lista de espera.</p>
       <div class="slot-machine">
         <div class="coin-drop" id="coinDrop" aria-hidden="true"></div>
         <div class="slot-cut" aria-hidden="true"></div>
@@ -417,7 +433,6 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
         <input type="email" id="coinEmail" placeholder="tu@email.com" aria-label="tu@email.com" required>
         <button class="kbtn amber" type="submit">Inserta moneda</button>
       </form>
-      <p class="coin-note">1 crédito = acceso anticipado al RMS y plaza en la lista de espera.</p>
       <p class="coin-msg" id="coinMsg" role="status"></p>
     </div>
 
@@ -511,17 +526,17 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
             <div class="pl-score"><span>SCORE</span><b>8720</b></div>
           </div>
           <p class="pl-quip">Convierte mercados caóticos en un plan que puedes ejecutar. Ve el precio tres jugadas antes.</p>
-          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Estrategia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Eficiencia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Imprevisibilidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><div class="pstat"><span class="ps-n">Locura</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div></div>
+          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Locura</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Imprevisibilidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Eficiencia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Intensidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div></div>
           <a class="kbtn amber" href="https://www.linkedin.com/in/emanuele-miano" target="_blank" rel="noopener">▸ Elegir</a>
         </div><div class="player winner">
-          <div class="pl-badge">Jugador 2 · Récord</div>
+          <div class="pl-badge">Jugador 2</div>
           <div class="pl-head">
             <div class="pl-av">EP</div>
             <div class="pl-id"><div class="pl-name">Enis Pulaha</div><div class="pl-class">El Comodín</div></div>
             <div class="pl-score"><span>SCORE</span><b>9310</b></div>
           </div>
           <p class="pl-quip">Caos con una hoja de cálculo. Nunca ves venir la jugada ganadora — pero entra.</p>
-          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Locura</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Imprevisibilidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Eficiencia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Estrategia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div></div>
+          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Locura</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Imprevisibilidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Eficiencia</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Intensidad</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div></div>
           <a class="kbtn amber" href="https://www.linkedin.com/in/enis-pulaha-56662150" target="_blank" rel="noopener">▸ Elegir</a>
         </div>
     </div>
@@ -855,7 +870,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
     creditNum.textContent=(credits<10?'0':'')+credits;
   }
 
-  function submitEmail(email, msgEl, okText, btn){
+  function submitEmail(email, msgEl, okText, btn, goRms){
     msgEl.className='coin-msg';
     msgEl.textContent='▸ ...';
     if(btn) btn.disabled=true;
@@ -879,6 +894,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       addCredit();
       msgEl.className='coin-msg ok';
       msgEl.textContent='▸ '+okText;
+      if(goRms) setTimeout(function(){ show('rms'); }, 900);
     }).catch(function(){
       msgEl.className='coin-msg bad';
       msgEl.textContent='✕ '+'La máquina se atascó. Inténtalo en un momento.';
@@ -897,7 +913,7 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
       return;
     }
     coinDrop.classList.remove('go'); void coinDrop.offsetWidth; coinDrop.classList.add('go');
-    submitEmail(v, coinMsg, 'Crédito añadido — estás en la lista', coinForm.querySelector('button'));
+    submitEmail(v, coinMsg, 'Crédito añadido — estás en la lista', coinForm.querySelector('button'), true);
     coinEmail.value='';
   });
 
