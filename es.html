@@ -632,10 +632,12 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 (function(){
   var FACTORS = ["Daily Pickup","Pace Trend","Online Pricing","Demand","AirDNA Market","Reviews"];
   var BASE = 120;
+  // per-factor impact (% on the base rate if that factor held 100% of the weight).
+  // Mixed signs make it lively: some factors push the price up, some pull it down.
   var SIGNALS = {
-    quiet:  [-6,-4,-3,-5,-2, 1],
-    normal: [ 3, 2, 0, 2, 1, 2],
-    event:  [14,11, 9,16, 7, 3]
+    quiet:  [-18,-14,-30,-22,-10, -8],
+    normal: [ 30, 20,-28, 40, 14,-18],
+    event:  [ 44, 34, -8, 52, 26,  6]
   };
   var scenario = 'normal';
   var DEFAULT  = [17,17,17,17,16,16];   // always sums to 100
