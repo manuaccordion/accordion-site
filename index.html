@@ -6,7 +6,7 @@
 <title>Accordion Advisory — Revenue Management</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --void:#070B14; --cab:#0C1421; --panel:#111C2E; --grid:#1B2C46;
@@ -99,14 +99,11 @@ body{
 #attract .big{font-size:clamp(19px,4.4vw,44px);text-shadow:0 0 18px rgba(53,208,255,.45);margin-bottom:10px}
 #attract .big .c1{color:var(--txt)}
 #attract .big .c2{color:var(--neon)}
-.sub{font-family:var(--px);font-size:clamp(11px,1.9vw,17px);line-height:1.9;color:var(--txt);
-  max-width:22ch;margin:22px auto 34px;letter-spacing:.02em}
-.sub .w{display:inline-block;white-space:nowrap;opacity:0;transform:translateY(12px);
-  animation:wordin .55s cubic-bezier(.34,1.5,.5,1) forwards}
-.sub .caret{display:inline-block;width:.55em;height:.14em;background:var(--amber);
-  vertical-align:baseline;margin-left:.2em;animation:blink 1s steps(2,start) infinite}
-@keyframes wordin{to{opacity:1;transform:none}}
-.sub .hl{color:var(--neon);text-shadow:0 0 16px rgba(53,208,255,.5)}
+.sub{font-family:var(--body);font-weight:600;font-size:clamp(19px,2.6vw,30px);line-height:1.35;color:var(--txt);
+  max-width:20ch;margin:20px auto 30px;letter-spacing:-.01em}
+.sub .w{display:inline-block;white-space:nowrap}
+.sub .caret{display:none}
+.sub .hl{color:var(--neon)}
 .start-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:16px}
 .blink{font-family:var(--px);font-size:12px;color:var(--amber);animation:blink 1.05s steps(2,start) infinite}
 @keyframes blink{50%{opacity:.15}}
@@ -178,10 +175,16 @@ body{
 .credits .row span{font-family:var(--mono);font-size:12px;color:var(--dim);opacity:.75}
 
 /* SELECT */
-.h2{font-family:var(--px);font-size:clamp(15px,2.6vw,24px);line-height:1.5;color:var(--txt);margin-bottom:12px}
+.h2{font-family:var(--body);font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.1;letter-spacing:-.015em;color:var(--txt);margin-bottom:12px}
 .h2 .c2{color:var(--neon)}
 .hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:32px}
 .menu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.slot.feat{border-color:var(--neon);background:linear-gradient(180deg,rgba(53,208,255,.10),var(--panel));
+  box-shadow:0 0 0 1px rgba(53,208,255,.25),0 22px 50px -30px rgba(53,208,255,.7)}
+.slot.feat .nm{color:var(--neon)}
+.feat-tag{position:absolute;top:-11px;right:16px;font-family:var(--mono);font-weight:500;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--void);background:var(--neon);
+  padding:5px 9px;border-radius:2px;box-shadow:0 0 16px rgba(53,208,255,.5)}
 .slot{
   text-align:left;background:var(--panel);border:2px solid var(--grid);border-radius:4px;
   padding:26px 24px;cursor:pointer;position:relative;color:var(--txt);
@@ -190,7 +193,7 @@ body{
 .slot:hover,.slot.sel{border-color:var(--neon);transform:translateY(-4px);
   box-shadow:0 0 0 1px rgba(53,208,255,.3), 0 22px 40px -24px rgba(53,208,255,.6)}
 .slot .tag{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
-.slot .nm{display:block;font-family:var(--px);font-size:14px;line-height:1.65;margin:0 0 14px;color:var(--txt)}
+.slot .nm{display:block;font-family:var(--body);font-weight:800;font-size:22px;line-height:1.2;letter-spacing:-.01em;margin:2px 0 12px;color:var(--txt)}
 .slot .ds{display:block;font-size:14.5px;color:var(--dim);line-height:1.65}
 .slot .go{display:block;font-family:var(--px);font-size:10px;color:var(--neon);margin-top:18px;opacity:0;transform:translateX(-6px);transition:.15s}
 .slot:hover .go,.slot.sel .go{opacity:1;transform:none}
@@ -208,7 +211,7 @@ body{
   transition:border-color .2s, transform .2s}
 .pcard:hover{border-color:var(--neon);transform:translateY(-5px)}
 .pcard .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
-.pcard h3{font-family:var(--px);font-size:12px;line-height:1.7;margin:14px 0 12px;color:var(--txt)}
+.pcard h3{font-family:var(--body);font-weight:800;font-size:19px;line-height:1.25;margin:12px 0 12px;letter-spacing:-.01em;color:var(--txt)}
 .pcard p{font-size:14.5px;color:var(--dim);line-height:1.65;margin-bottom:18px}
 .stat{margin-bottom:10px}
 .stat .sl{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;
@@ -221,7 +224,7 @@ body{
 /* RMS LAB */
 .lab{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start}
 .pane{background:var(--panel);border:2px solid var(--grid);border-radius:4px;padding:22px 20px}
-.pane h4{font-family:var(--px);font-size:10px;letter-spacing:.04em;color:var(--neon);margin-bottom:16px}
+.pane h4{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
 .scen{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .scen button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
   background:#0A1524;color:var(--dim);border:2px solid var(--grid);border-radius:2px;padding:9px 12px;cursor:pointer;
@@ -247,6 +250,14 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .readout .rate{font-family:var(--px);font-size:clamp(26px,5vw,40px);color:var(--neon);margin:10px 0 6px;
   text-shadow:0 0 22px rgba(53,208,255,.55)}
 .readout .delta{font-family:var(--mono);font-size:12px;letter-spacing:.08em}
+/* featured price banner at the top of the RMS Lab */
+.rate-hero{text-align:center;background:linear-gradient(180deg,rgba(53,208,255,.10),var(--panel));
+  border:2px solid var(--neon);border-radius:6px;padding:26px 20px 24px;margin:0 auto 24px;max-width:640px;
+  box-shadow:0 0 0 1px rgba(53,208,255,.15),0 30px 60px -34px rgba(53,208,255,.6)}
+.rate-hero .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.rate-hero .rate{font-family:var(--px);font-size:clamp(40px,8vw,68px);color:var(--neon);margin:12px 0 10px;
+  text-shadow:0 0 30px rgba(53,208,255,.6)}
+.rate-hero .delta{font-family:var(--mono);font-size:13.5px;letter-spacing:.04em}
 .up{color:#4CE0A8}.down{color:var(--pink)}.flat{color:var(--dim)}
 .why{list-style:none}
 .why li{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
@@ -305,7 +316,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
   border:1px solid var(--grid);box-shadow:0 0 18px rgba(53,208,255,.25)}
 .player.winner .pl-av{background:linear-gradient(135deg,rgba(255,197,66,.9),#C8912E);border-color:#C8912E;box-shadow:0 0 18px rgba(255,197,66,.4)}
 .pl-id{flex:1;min-width:0}
-.pl-name{font-family:var(--px);font-size:12px;color:var(--txt);line-height:1.5}
+.pl-name{font-family:var(--body);font-weight:800;font-size:19px;color:var(--txt);line-height:1.2;letter-spacing:-.01em}
 .pl-class{font-family:var(--mono);font-size:12px;color:var(--neon);letter-spacing:.06em;margin-top:5px}
 .player.winner .pl-class{color:var(--amber)}
 .pl-score{text-align:right}
@@ -457,7 +468,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <div class="hint">Use ← → and ENTER, or just click</div>
     <div class="menu" id="menu">
 <button class="slot" data-go="strategy"><span class="tag">1 Player</span><span class="nm">Revenue Strategy</span><span class="ds">Your hotel's initial revenue strategy: what we build and how.</span><span class="go">▶ Press start</span></button>
-<button class="slot" data-go="rms"><span class="tag">2 Players</span><span class="nm">RMS Lab</span><span class="ds">Set the weights. Watch the price move. See exactly why.</span><span class="go">▶ Press start</span></button>
+<button class="slot feat" data-go="rms"><span class="feat-tag">★ Try it live</span><span class="tag">2 Players</span><span class="nm">RMS Lab</span><span class="ds">Set the weights. Watch the price move. See exactly why.</span><span class="go">▶ Press start</span></button>
 <button class="slot" data-go="players"><span class="tag">2 Players</span><span class="nm">Select player</span><span class="ds">Meet the team. Pick your fighter.</span><span class="go">▶ Press start</span></button>
 <button class="slot" data-go="map"><span class="tag">Bonus</span><span class="nm">World Map</span><span class="ds">9 countries. 3 continents. One team.</span><span class="go">▶ Press start</span></button>
     </div>
@@ -481,8 +492,15 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 
   <!-- RMS LAB -->
   <section class="screen" id="rms">
-    <div class="shead"><div><span class="badge">Coming soon</span><h2 class="h2">RMS Lab</h2></div></div>
+    <div class="shead"><span class="badge">Coming soon</span><h2 class="h2">RMS Lab</h2></div>
     <p class="lead">A revenue management system for short-term rental apartments (STR), with an algorithm you can actually understand. Move the weights: the rate moves with them, and every euro is explained.</p>
+
+    <div class="rate-hero">
+      <div class="lbl">Recommended rate</div>
+      <div class="rate" id="rate">€120</div>
+      <div class="delta flat" id="delta">Base rate: €120</div>
+    </div>
+
     <div class="lab">
       <div class="pane">
         <div class="wtot"><h4 style="margin:0">Factor weights</h4><span id="wsum">100 / 100</span></div>
@@ -495,11 +513,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
         <button class="kbtn alt" id="resetW" style="margin-top:6px">Reset weights</button>
       </div>
       <div class="pane">
-        <div class="readout">
-          <div class="lbl">Recommended rate</div>
-          <div class="rate" id="rate">€120</div>
-          <div class="delta flat" id="delta">Base rate: €120</div>
-        </div>
         <h4>Why this rate</h4>
         <ul class="why" id="why"></ul>
         <p class="demo-note">Demo with sample signals. The real engine reads your live data.</p>
