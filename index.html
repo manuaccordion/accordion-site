@@ -165,6 +165,7 @@ body{
 .h2 .c2{color:var(--neon)}
 .hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:32px}
 .menu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.menu .slot:last-child{grid-column:1/-1}
 .slot{
   text-align:left;background:var(--panel);border:2px solid var(--grid);border-radius:4px;
   padding:26px 24px;cursor:pointer;position:relative;color:var(--txt);
@@ -283,10 +284,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
   color:var(--void);background:var(--neon);padding:6px 9px;border-radius:2px}
 .player.winner .pl-badge{background:var(--amber)}
 .pl-head{display:flex;align-items:center;gap:14px}
-.pl-av{width:56px;height:56px;flex:0 0 auto;border-radius:4px;display:flex;align-items:center;justify-content:center;
-  font-family:var(--px);font-size:15px;color:var(--void);
-  background:linear-gradient(135deg,var(--neon),#1E86C0);box-shadow:0 0 20px rgba(53,208,255,.4)}
-.player.winner .pl-av{background:linear-gradient(135deg,var(--amber),#C8912E);color:#2A1E06;box-shadow:0 0 20px rgba(255,197,66,.45)}
+.pl-av{width:60px;height:60px;flex:0 0 auto;border-radius:6px;padding:4px;
+  background:linear-gradient(135deg,rgba(53,208,255,.18),rgba(30,134,192,.05));
+  border:1px solid var(--grid);box-shadow:0 0 18px rgba(53,208,255,.25)}
+.player.winner .pl-av{background:linear-gradient(135deg,rgba(255,197,66,.9),#C8912E);border-color:#C8912E;box-shadow:0 0 18px rgba(255,197,66,.4)}
 .pl-id{flex:1;min-width:0}
 .pl-name{font-family:var(--px);font-size:12px;color:var(--txt);line-height:1.5}
 .pl-class{font-family:var(--mono);font-size:12px;color:var(--neon);letter-spacing:.06em;margin-top:5px}
@@ -522,22 +523,22 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
 <div class="player">
           <div class="pl-badge">Player 1</div>
           <div class="pl-head">
-            <div class="pl-av">EM</div>
+            <div class="pl-av"><svg viewBox="0 0 48 48" width="100%" height="100%" aria-hidden="true"><path d="M31 7 L26 14 L30 13 L26 19" fill="none" stroke="#FFC542" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><rect x="11" y="13" width="26" height="23" rx="6" fill="#123047" stroke="#35D0FF" stroke-width="2"/><rect x="15" y="19" width="18" height="9" rx="3" fill="#071019" stroke="#35D0FF" stroke-width="1.5"/><rect x="17" y="21" width="5" height="5" fill="#35D0FF"/><rect x="27" y="22" width="5" height="3" fill="#35D0FF"/><path d="M16 32 L32 32" stroke="#35D0FF" stroke-width="2" stroke-dasharray="2 3"/></svg></div>
             <div class="pl-id"><div class="pl-name">Emanuele Miano</div><div class="pl-class">The Wildcard</div></div>
             <div class="pl-score"><span>SCORE</span><b>4283</b></div>
           </div>
           <p class="pl-quip">Thrives in the mess. Finds the dots everyone missed and connects them into a price.</p>
-          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Madness</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Unpredictability</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Efficiency</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Intensity</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div></div>
+          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Madness</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Unpredictability</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Order</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></div><div class="pstat"><span class="ps-n">Intensity</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div></div>
           <a class="kbtn amber" href="https://www.linkedin.com/in/emanuele-miano" target="_blank" rel="noopener">▸ Choose</a>
         </div><div class="player winner">
           <div class="pl-badge">Player 2</div>
           <div class="pl-head">
-            <div class="pl-av">EP</div>
+            <div class="pl-av"><svg viewBox="0 0 48 48" width="100%" height="100%" aria-hidden="true"><line x1="24" y1="7" x2="24" y2="13" stroke="#2A1E06" stroke-width="2"/><circle cx="24" cy="6" r="2.5" fill="#2A1E06"/><rect x="11" y="13" width="26" height="23" rx="6" fill="#5A430F" stroke="#2A1E06" stroke-width="2"/><rect x="15" y="19" width="18" height="9" rx="3" fill="#2A1E06" stroke="#2A1E06" stroke-width="1"/><circle cx="20" cy="23.5" r="2.3" fill="#FFE18A"/><circle cx="28" cy="23.5" r="2.3" fill="#FFE18A"/><rect x="18" y="31" width="12" height="2.4" rx="1" fill="#2A1E06"/></svg></div>
             <div class="pl-id"><div class="pl-name">Enis Pulaha</div><div class="pl-class">The Perfectionist</div></div>
-            <div class="pl-score"><span>SCORE</span><b>5082</b></div>
+            <div class="pl-score"><span>SCORE</span><b>4482</b></div>
           </div>
           <p class="pl-quip">Order, intensity, and an obsession with precision. Nothing ships until every number lines up.</p>
-          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Madness</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Unpredictability</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Efficiency</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Intensity</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div></div>
+          <div class="pl-stats"><div class="ps-lbl">Stats</div><div class="pstat"><span class="ps-n">Madness</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Unpredictability</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></div><div class="pstat"><span class="ps-n">Order</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="pstat"><span class="ps-n">Intensity</span><span class="ps-s"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div></div>
           <a class="kbtn amber" href="https://www.linkedin.com/in/enis-pulaha-56662150" target="_blank" rel="noopener">▸ Choose</a>
         </div>
     </div>
@@ -587,22 +588,12 @@ footer{border-top:2px solid var(--grid);padding:20px 0;margin-top:10px}
   <section class="screen" id="contact">
     <div class="shead"><h2 class="h2">Talk to us</h2></div>
     <p class="lead">Tell us about your hotel — or your next opening — and we'll map the opportunity.</p>
-    <div class="mailbox">
-      <span class="mb-lbl">Email</span>
-      <code id="mailAddr">manuaccordion@gmail.com</code>
-      <button class="kbtn amber sm" id="copyMail">Copy email</button>
-    </div>
     <div class="contact-grid">
       <a class="kbtn wa-main" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">▸ Chat on WhatsApp</a>
+      <a class="kbtn alt" target="_blank" rel="noopener"
+         href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">Email</a>
     </div>
     <p class="c-hint">No mail app? Use Gmail, or copy the address.</p>
-    <div class="contact-grid">
-      <a class="kbtn alt" id="gmailBtn" target="_blank" rel="noopener"
-         href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">Write on Gmail</a>
-      <a class="kbtn alt" id="mailtoBtn" href="mailto:manuaccordion@gmail.com">Open mail app</a>
-      <a class="kbtn alt" href="https://www.linkedin.com/company/accordion-advisory/" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <p class="coin-msg" id="mailMsg" role="status"></p>
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menu</button>
       <button class="kbtn amber" data-home="1">▸ Play again</button>
