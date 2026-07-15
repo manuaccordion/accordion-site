@@ -330,14 +330,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
   margin-top:44px;padding-top:24px;border-top:2px solid var(--grid)}
 
 /* mobile pad */
-.pad{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
-  background:rgba(7,11,20,.94);border-top:2px solid var(--grid);padding:10px 14px}
-.pad-in{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:520px;margin:0 auto}
-.dpad{display:flex;gap:8px}
-.pad button{font-family:var(--px);font-size:11px;background:#0A1524;color:var(--neon);
-  border:2px solid var(--grid);border-radius:3px;width:46px;height:44px;cursor:pointer}
-.pad button.act{width:auto;padding:0 16px;background:var(--neon);color:var(--void);border-color:var(--neon)}
-.pad button:active{transform:translateY(2px)}
 
 /* ---- GAME OVER ---- */
 .gameover{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;
@@ -378,11 +370,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   .navbtns{display:none!important}
   .menu{grid-template-columns:1fr}
   .slot.sel::before{display:none}
-  .screen{padding:30px 0 110px}
-  .pad{display:block}
-  .pad button{font-size:9px;height:42px;width:42px}
-  .pad button.act{padding:0 10px}
-  .pad-in{gap:8px}
+  .screen{padding:30px 0 40px}
   .map-hint{display:none}
   #attract .big{font-size:clamp(17px,6vw,28px)}
   .kbtn{font-size:10px;padding:13px 15px}
@@ -627,18 +615,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   </div>
 </div>
 
-<div class="pad" aria-hidden="true">
-  <div class="pad-in">
-    <div class="dpad">
-      <button id="padL">◀</button>
-      <button id="padR">▶</button>
-    </div>
-    <button class="act" id="padA">Press start</button>
-    <button class="act" id="padB" style="background:transparent;color:var(--neon)">◀ Back</button>
-    <button class="act" id="padH" style="background:transparent;color:var(--amber);border-color:var(--amber)">Home</button>
-  </div>
-</div>
-
 <script>
 (function(){
   var FACTORS = ["Daily Pickup","Pace Trend","Online Pricing","Demand","AirDNA Market","Reviews"];
@@ -708,15 +684,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     if(e.key==='ArrowLeft' ||e.key==='ArrowUp'){ pick=(pick-1+slots.length)%slots.length; mark(); e.preventDefault(); }
     if(e.key==='Enter'){ slots[pick].click(); }
   });
-  /* mobile pad */
-  document.getElementById('padL').onclick=function(){ if(current==='select'){pick=(pick-1+slots.length)%slots.length;mark();} };
-  document.getElementById('padR').onclick=function(){ if(current==='select'){pick=(pick+1)%slots.length;mark();} };
-  document.getElementById('padA').onclick=function(){
-    if(current==='attract') show('select');
-    else if(current==='select') slots[pick].click();
-  };
-  document.getElementById('padB').onclick=goBack;
-  document.getElementById('padH').onclick=goHome;
 
   /* ---- RMS LAB ---- */
   var rateEl=document.getElementById('rate');
