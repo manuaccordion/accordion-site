@@ -113,7 +113,7 @@ body{
 .blink{font-family:var(--px);font-size:12px;color:var(--amber);animation:blink 1.05s steps(2,start) infinite}
 @keyframes blink{50%{opacity:.15}}
 .insert{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-/* joystick */
+
 /* DJ / mixer faders — echoes changing the RMS weights */
 /* ---- INSERT COIN ---- */
 .coin{margin-top:34px;width:100%;max-width:440px;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--grid);
@@ -142,31 +142,6 @@ body{
 .coin-msg.ok{color:#4CE0A8}
 .coin-msg.bad{color:var(--bad)}
 
-/* ---- arcade joystick (you control the price) ---- */
-.start-row{display:flex;align-items:flex-end;justify-content:center;gap:20px}
-.joystick{position:relative;width:78px;height:74px;flex:0 0 auto}
-/* round base plate */
-.js-base{position:absolute;left:50%;bottom:0;width:64px;height:21px;transform:translateX(-50%);
-  border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#22344B,#0C1421 70%);
-  border:1px solid var(--grid);box-shadow:0 8px 18px -10px rgba(0,0,0,.85), inset 0 2px 4px rgba(0,0,0,.6)}
-.js-ring{position:absolute;left:50%;bottom:6px;width:28px;height:11px;transform:translateX(-50%);
-  border-radius:50%;background:#0A121E;border:1px solid var(--grid);box-shadow:inset 0 2px 6px rgba(0,0,0,.8)}
-/* the stick tilts as a whole, pivoting at the base */
-.js-stick{position:absolute;left:50%;bottom:9px;width:10px;height:50px;transform-origin:50% 100%;
-  transform:translateX(-50%);animation:jtilt 5s ease-in-out infinite}
-.js-shaft{position:absolute;left:50%;bottom:0;width:7px;height:38px;transform:translateX(-50%);
-  border-radius:5px;background:linear-gradient(90deg,#4A5F78,#9FB6CC 45%,#4A5F78);
-  box-shadow:0 0 10px rgba(0,0,0,.5)}
-.js-ball{position:absolute;left:50%;top:-4px;width:22px;height:22px;transform:translateX(-50%);
-  border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFE39A,var(--amber) 60%,#C8912E);
-  box-shadow:0 0 14px rgba(255,194,75,.45), inset -2px -3px 6px rgba(0,0,0,.35)}
-@keyframes jtilt{
-  0%,100%{transform:translateX(-50%) rotate(0deg)}
-  22%{transform:translateX(-50%) rotate(-15deg)}
-  50%{transform:translateX(-50%) rotate(11deg)}
-  74%{transform:translateX(-50%) rotate(-6deg)}
-}
-@media(prefers-reduced-motion:reduce){.js-stick{animation:none}}
 
 
 .big-start{font-size:16px;padding:20px 40px;box-shadow:0 6px 0 #A8792A,0 14px 28px -10px rgba(255,197,66,.7)}
@@ -431,14 +406,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
     <p class="sub"><span class="w" style="animation-delay:0.25s">La</span> <span class="w hl" style="animation-delay:0.37s">estrategia</span> <span class="w" style="animation-delay:0.49s">inicial</span> <span class="w" style="animation-delay:0.61s">de</span> <span class="w hl" style="animation-delay:0.73s">revenue</span> <span class="w" style="animation-delay:0.85s">de</span> <span class="w" style="animation-delay:0.97s">tu</span> <span class="w" style="animation-delay:1.09s">hotel</span><span class="caret"></span></p>
     <div class="start-wrap">
-      <div class="start-row">
-        <div class="joystick" aria-hidden="true">
-          <span class="js-base"></span>
-          <span class="js-ring"></span>
-          <span class="js-stick"><span class="js-shaft"></span><span class="js-ball"></span></span>
-        </div>
-        <button class="kbtn amber big-start" id="startBtn">Pulsa start</button>
-      </div>
+      <button class="kbtn amber big-start" id="startBtn">Pulsa start</button>
       <span class="blink">▶ Haz clic, toca o pulsa ENTER</span>
     </div>
 
