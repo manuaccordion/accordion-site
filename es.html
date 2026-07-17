@@ -142,33 +142,31 @@ body{
 .coin-msg.ok{color:#4CE0A8}
 .coin-msg.bad{color:var(--bad)}
 
-/* ---- gamepad (shows the site is playable) ---- */
-.gamepad{display:flex;justify-content:center;margin:10px auto 14px}
-.gp-body{position:relative;width:150px;height:74px;border-radius:16px;
-  background:linear-gradient(180deg,#16273D,#0C1421);border:2px solid var(--grid);
-  box-shadow:0 8px 26px -12px rgba(0,0,0,.8), inset 0 2px 0 rgba(255,255,255,.05)}
-/* D-pad */
-.dpad{position:absolute;left:22px;top:50%;width:34px;height:34px;transform:translateY(-50%)}
-.dpad i{position:absolute;background:#243B57;border-radius:2px}
-.dpad .up{left:12px;top:0;width:10px;height:13px}
-.dpad .dn{left:12px;bottom:0;width:10px;height:13px}
-.dpad .lf{left:0;top:12px;width:13px;height:10px}
-.dpad .rt{right:0;top:12px;width:13px;height:10px}
-.dpad .ctr{left:12px;top:12px;width:10px;height:10px;background:#2E4A6D}
-.dpad .up{animation:press 2.4s ease-in-out infinite}
-.dpad .rt{animation:press 2.4s ease-in-out .6s infinite}
-.dpad .dn{animation:press 2.4s ease-in-out 1.2s infinite}
-.dpad .lf{animation:press 2.4s ease-in-out 1.8s infinite}
-@keyframes press{0%,100%{background:#243B57;box-shadow:none}50%{background:var(--neon);box-shadow:0 0 10px rgba(53,208,255,.8)}}
-/* action buttons */
-.gp-btns{position:absolute;right:24px;top:50%;width:40px;height:40px;transform:translateY(-50%)}
-.gp-btns i{position:absolute;width:16px;height:16px;border-radius:50%}
-.gp-btns .ba{right:0;top:2px;background:radial-gradient(circle at 35% 32%,#FFE18A,var(--amber));
-  box-shadow:0 0 10px rgba(255,197,66,.6);animation:btnpop 2.4s ease-in-out .3s infinite}
-.gp-btns .bb{left:0;bottom:2px;background:radial-gradient(circle at 35% 32%,#8FE3FF,var(--neon));
-  box-shadow:0 0 10px rgba(53,208,255,.6);animation:btnpop 2.4s ease-in-out 1.1s infinite}
-@keyframes btnpop{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
-@media(prefers-reduced-motion:reduce){.dpad i,.gp-btns i{animation:none}}
+/* ---- arcade joystick (you control the price) ---- */
+.joystick{position:relative;width:120px;height:104px;margin:6px auto 16px}
+/* round base plate */
+.js-base{position:absolute;left:50%;bottom:0;width:92px;height:30px;transform:translateX(-50%);
+  border-radius:50%;background:radial-gradient(ellipse at 50% 35%,#22344B,#0C1421 70%);
+  border:1px solid var(--grid);box-shadow:0 10px 24px -12px rgba(0,0,0,.85), inset 0 2px 4px rgba(0,0,0,.6)}
+.js-ring{position:absolute;left:50%;bottom:8px;width:40px;height:16px;transform:translateX(-50%);
+  border-radius:50%;background:#0A121E;border:1px solid var(--grid);box-shadow:inset 0 2px 6px rgba(0,0,0,.8)}
+/* the stick tilts as a whole, pivoting at the base */
+.js-stick{position:absolute;left:50%;bottom:12px;width:14px;height:70px;transform-origin:50% 100%;
+  transform:translateX(-50%);animation:jtilt 5s ease-in-out infinite}
+.js-shaft{position:absolute;left:50%;bottom:0;width:9px;height:52px;transform:translateX(-50%);
+  border-radius:5px;background:linear-gradient(90deg,#4A5F78,#9FB6CC 45%,#4A5F78);
+  box-shadow:0 0 10px rgba(0,0,0,.5)}
+.js-ball{position:absolute;left:50%;top:-6px;width:30px;height:30px;transform:translateX(-50%);
+  border-radius:50%;background:radial-gradient(circle at 34% 30%,#FFE39A,var(--amber) 60%,#C8912E);
+  box-shadow:0 0 18px rgba(255,194,75,.5), inset -3px -4px 8px rgba(0,0,0,.35)}
+@keyframes jtilt{
+  0%,100%{transform:translateX(-50%) rotate(0deg)}
+  22%{transform:translateX(-50%) rotate(-15deg)}
+  50%{transform:translateX(-50%) rotate(11deg)}
+  74%{transform:translateX(-50%) rotate(-6deg)}
+}
+@media(prefers-reduced-motion:reduce){.js-stick{animation:none}}
+
 
 .big-start{font-size:16px;padding:20px 40px;box-shadow:0 6px 0 #A8792A,0 14px 28px -10px rgba(255,197,66,.7)}
 .big-start:active{transform:translateY(5px);box-shadow:0 1px 0 #A8792A}
@@ -429,12 +427,10 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 
   <!-- ATTRACT -->
   <section class="screen on" id="attract">
-    <div class="marquee-tag">Estrategia y arquitectura de Revenue</div>
-    <div class="gamepad" aria-hidden="true">
-      <span class="gp-body">
-        <span class="dpad"><i class="up"></i><i class="dn"></i><i class="lf"></i><i class="rt"></i><i class="ctr"></i></span>
-        <span class="gp-btns"><i class="ba"></i><i class="bb"></i></span>
-      </span>
+    <div class="joystick" aria-hidden="true">
+      <span class="js-base"></span>
+      <span class="js-ring"></span>
+      <span class="js-stick"><span class="js-shaft"></span><span class="js-ball"></span></span>
     </div>
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
     <p class="sub"><span class="w" style="animation-delay:0.25s">La</span> <span class="w hl" style="animation-delay:0.37s">estrategia</span> <span class="w" style="animation-delay:0.49s">inicial</span> <span class="w" style="animation-delay:0.61s">de</span> <span class="w hl" style="animation-delay:0.73s">revenue</span> <span class="w" style="animation-delay:0.85s">de</span> <span class="w" style="animation-delay:0.97s">tu</span> <span class="w" style="animation-delay:1.09s">hotel</span><span class="caret"></span></p>
@@ -989,6 +985,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   box.addEventListener('mouseenter',function(){ paused=true; stopTour(); });
   box.addEventListener('mouseleave',function(){ paused=false; if(!timer) timer=setTimeout(step,400); });
 })();
+
 </script>
 </body>
 </html>
