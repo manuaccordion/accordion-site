@@ -311,8 +311,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .ps-s i.on{background:var(--neon);border-color:var(--neon)}
 .player.winner .ps-s i.on{background:var(--amber);border-color:var(--amber)}
 .player .kbtn{margin-top:auto}
-.kbtn.wa-main{background:#25D366;color:#04240F;box-shadow:0 5px 0 #128C3E,0 10px 22px -10px rgba(37,211,102,.7);font-size:12px;padding:16px 22px}
-.kbtn.wa-main:hover{background:#31E074}
+.cta-icons{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
+.cta-q{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:34ch;text-align:center}
 @media(max-width:680px){ .players{grid-template-columns:1fr} }
 
 /* end-of-screen navigation */
@@ -346,8 +346,8 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   border:1px solid var(--grid);background:linear-gradient(180deg,var(--panel-2),var(--panel));
   transition:transform .15s, border-color .2s, box-shadow .2s, color .2s}
 .ico:hover{transform:translateY(-2px)}
-.ico-wa{color:#25D366}
-.ico-wa:hover{border-color:#25D366;box-shadow:0 0 0 1px rgba(37,211,102,.25),0 12px 26px -16px rgba(37,211,102,.8)}
+.ico-wa{color:var(--neon)}
+.ico-wa:hover{border-color:var(--neon);box-shadow:0 0 0 1px rgba(56,210,255,.22),0 12px 26px -16px rgba(56,210,255,.7)}
 .ico-mail{color:var(--neon)}
 .ico-mail:hover{border-color:var(--neon);box-shadow:0 0 0 1px rgba(56,210,255,.22),0 12px 26px -16px rgba(56,210,255,.7)}
 .foot{display:block;text-align:center}
@@ -462,7 +462,16 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 <div class="pcard"><div class="tag">Especialización</div><h3>Nuevas aperturas</h3><p>Llevamos una nueva propiedad al mercado con el posicionamiento y la arquitectura de revenue correctos desde el primer día.</p><div class="stat"><div class="sl"><span>Posicionamiento</span><span>95</span></div><div class="bar"><i style="--w:95%"></i></div></div><div class="stat"><div class="sl"><span>Comp set y demanda</span><span>90</span></div><div class="bar"><i style="--w:90%"></i></div></div><div class="stat"><div class="sl"><span>Plan de apertura</span><span>80</span></div><div class="bar"><i style="--w:80%"></i></div></div></div>
 <div class="pcard"><div class="tag">Puente · temporal</div><h3>Revenue Task Force</h3><p>Cobertura temporal de revenue mientras encuentras o formas a tu responsable permanente. Una solución puente, no una gestión indefinida.</p><div class="stat"><div class="sl"><span>Rapidez</span><span>95</span></div><div class="bar"><i style="--w:95%"></i></div></div><div class="stat"><div class="sl"><span>Continuidad</span><span>85</span></div><div class="bar"><i style="--w:85%"></i></div></div><div class="stat"><div class="sl"><span>Traspaso</span><span>90</span></div><div class="bar"><i style="--w:90%"></i></div></div></div>
     </div>
-    <div style="margin-top:30px"><a class="kbtn wa-main" href="https://wa.link/rb3sn4" target="_blank" rel="noopener">▸ Escríbenos por WhatsApp</a></div>
+    <div class="cta-icons">
+      <span class="cta-q">Cuéntanos sobre tu hotel —o tu próxima apertura— y te mostramos la oportunidad.</span>
+      <a class="ico ico-wa" href="https://wa.link/rb3sn4" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2A9.9 9.9 0 0 0 2.13 11.9c0 1.75.46 3.46 1.34 4.97L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01a9.9 9.9 0 0 0 9.9-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.24-.68-2.73-1.08-4.46-3.85-4.6-4.03-.13-.18-1.1-1.46-1.1-2.79 0-1.32.7-1.97.94-2.24.25-.27.54-.34.72-.34.18 0 .36 0 .52.01.17.01.39-.6.6.46.23.55.78 1.9.85 2.04.7.14.11.3.02.48-.9.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.7.16-.18.68-.79.86-1.06.18-.27.36-.23.6-.14.25.09 1.58.75 1.85.88.27.14.45.2.52.32.07.11.07.66-.17 1.34Z"/></svg>
+      </a>
+      <a class="ico ico-mail" target="_blank" rel="noopener" aria-label="Email" title="Email"
+         href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M3 6.5h18v11H3z"/><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="m3.6 7.2 8.4 6 8.4-6"/></svg>
+      </a>
+    </div>
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menú</button>
       <button class="kbtn amber" data-home="1">▸ Jugar otra vez</button>
