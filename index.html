@@ -137,6 +137,7 @@ body{
 .coin-form input{flex:1;min-width:170px;background:#0A1524;border:2px solid var(--grid);border-radius:2px;
   color:var(--txt);font-family:var(--mono);font-size:13px;padding:12px}
 .coin-form input:focus{outline:none;border-color:var(--amber)}
+.coin-form button{font-size:11px;padding:13px 18px}
 .coin-note{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:10px;line-height:1.6}
 .coin-msg{font-family:var(--px);font-size:9px;line-height:1.7;margin-top:10px;min-height:1em}
 .coin-msg.ok{color:#4CE0A8}
@@ -144,7 +145,7 @@ body{
 
 
 
-.big-start{font-size:16px;padding:20px 40px;box-shadow:0 6px 0 #A8792A,0 14px 28px -10px rgba(255,197,66,.7)}
+.big-start{font-size:16px;padding:20px 40px;min-width:280px;box-shadow:0 6px 0 #A8792A,0 14px 28px -10px rgba(255,194,75,.55)}
 .big-start:active{transform:translateY(5px);box-shadow:0 1px 0 #A8792A}
 .coin-tag{font-family:var(--px);font-size:8px;color:var(--void);background:var(--neon);
   padding:5px 8px;border-radius:2px;white-space:nowrap}
@@ -311,8 +312,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .ps-s i.on{background:var(--neon);border-color:var(--neon)}
 .player.winner .ps-s i.on{background:var(--amber);border-color:var(--amber)}
 .player .kbtn{margin-top:auto}
-.cta-icons{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:34px}
-.cta-q{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:34ch;text-align:center}
+.cta-icons{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:34px}
+.cta-q{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:40ch;text-align:center}
+.cta-row{display:flex;gap:12px;justify-content:center}
 @media(max-width:680px){ .players{grid-template-columns:1fr} }
 
 /* end-of-screen navigation */
@@ -338,8 +340,9 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
 footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
-.foot-cta{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+.foot-cta{display:flex;flex-direction:column;align-items:center;gap:12px;
   padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--grid)}
+.foot-cta .foot-icons{display:flex;gap:12px;justify-content:center}
 .foot-q{font-family:var(--mono);font-size:12.5px;color:var(--dim);max-width:32ch}
 .foot-meta{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
 .ico{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:6px;
@@ -413,8 +416,8 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <h1 class="big"><span class="c1">Accordion</span> <span class="c2">Advisory</span></h1>
     <p class="sub"><span class="w" style="animation-delay:0.25s">Your</span> <span class="w" style="animation-delay:0.37s">hotel's</span> <span class="w" style="animation-delay:0.49s">initial</span> <span class="w hl" style="animation-delay:0.61s">revenue</span> <span class="w hl" style="animation-delay:0.73s">strategy</span><span class="caret"></span></p>
     <div class="start-wrap">
-      <button class="kbtn amber big-start" id="startBtn">START</button>
-      <span class="blink">▶ Click, tap or press START</span>
+      <button class="kbtn amber big-start" id="startBtn">PRESS START</button>
+      <span class="blink">▶ Push start button</span>
     </div>
 
     <div class="coin" id="coin">
@@ -446,10 +449,10 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <h2 class="h2">Select mode</h2>
     <div class="hint">Use ← → and ENTER, or just click</div>
     <div class="menu" id="menu">
-<button class="slot" data-go="strategy"><span class="tag">Campaign</span><span class="nm">Revenue Strategy</span><span class="ds">Your hotel's initial revenue strategy: what we build and how.</span><span class="go">▶ START</span></button>
-<button class="slot feat" data-go="rms"><span class="feat-tag">★ Try it live</span><span class="tag">Bonus</span><span class="nm">RMS Lab</span><span class="ds">Set the weights. Watch the price move. See exactly why.</span><span class="go">▶ START</span></button>
-<button class="slot" data-go="players"><span class="tag">Co-op</span><span class="nm">Select revenue player</span><span class="ds">Meet the team. Pick your fighter.</span><span class="go">▶ START</span></button>
-<button class="slot" data-go="map"><span class="tag">IRL</span><span class="nm">On the ground</span><span class="ds">Not remote — on-site in 9 countries, inside real hotels and teams.</span><span class="go">▶ START</span></button>
+<button class="slot" data-go="strategy"><span class="tag">Campaign</span><span class="nm">Revenue Strategy</span><span class="ds">Your hotel's initial revenue strategy: what we build and how.</span><span class="go">▶ PRESS START</span></button>
+<button class="slot feat" data-go="rms"><span class="feat-tag">★ Try it live</span><span class="tag">Bonus</span><span class="nm">RMS Lab</span><span class="ds">Set the weights. Watch the price move. See exactly why.</span><span class="go">▶ PRESS START</span></button>
+<button class="slot" data-go="players"><span class="tag">Co-op</span><span class="nm">Select revenue player</span><span class="ds">Meet the team. Pick your fighter.</span><span class="go">▶ PRESS START</span></button>
+<button class="slot" data-go="map"><span class="tag">IRL</span><span class="nm">On the ground</span><span class="ds">Not remote — on-site in 9 countries, inside real hotels and teams.</span><span class="go">▶ PRESS START</span></button>
     </div>
   </section>
 
@@ -464,6 +467,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     </div>
     <div class="cta-icons">
       <span class="cta-q">Tell us about your hotel — or your next opening — and we'll map the opportunity.</span>
+      <span class="cta-row">
       <a class="ico ico-wa" href="https://wa.link/rb3sn4" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2A9.9 9.9 0 0 0 2.13 11.9c0 1.75.46 3.46 1.34 4.97L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01a9.9 9.9 0 0 0 9.9-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.24-.68-2.73-1.08-4.46-3.85-4.6-4.03-.13-.18-1.1-1.46-1.1-2.79 0-1.32.7-1.97.94-2.24.25-.27.54-.34.72-.34.18 0 .36 0 .52.01.17.01.39-.6.6.46.23.55.78 1.9.85 2.04.7.14.11.3.02.48-.9.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.7.16-.18.68-.79.86-1.06.18-.27.36-.23.6-.14.25.09 1.58.75 1.85.88.27.14.45.2.52.32.07.11.07.66-.17 1.34Z"/></svg>
       </a>
@@ -471,6 +475,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
          href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M3 6.5h18v11H3z"/><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="m3.6 7.2 8.4 6 8.4-6"/></svg>
       </a>
+      </span>
     </div>
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menu</button>
@@ -593,6 +598,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <div class="foot">
       <div class="foot-cta">
         <span class="foot-q">Tell us about your hotel — or your next opening — and we'll map the opportunity.</span>
+        <span class="foot-icons">
         <a class="ico ico-wa" href="https://wa.link/rb3sn4" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2A9.9 9.9 0 0 0 2.13 11.9c0 1.75.46 3.46 1.34 4.97L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01a9.9 9.9 0 0 0 9.9-9.9A9.9 9.9 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.24-.68-2.73-1.08-4.46-3.85-4.6-4.03-.13-.18-1.1-1.46-1.1-2.79 0-1.32.7-1.97.94-2.24.25-.27.54-.34.72-.34.18 0 .36 0 .52.01.17.01.39-.6.6.46.23.55.78 1.9.85 2.04.7.14.11.3.02.48-.9.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.27.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.7.16-.18.68-.79.86-1.06.18-.27.36-.23.6-.14.25.09 1.58.75 1.85.88.27.14.45.2.52.32.07.11.07.66-.17 1.34Z"/></svg>
         </a>
@@ -600,6 +606,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
            href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=manuaccordion@gmail.com&amp;su=Accordion%20Advisory">
           <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" d="M3 6.5h18v11H3z"/><path fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="m3.6 7.2 8.4 6 8.4-6"/></svg>
         </a>
+        </span>
       </div>
       <div class="foot-meta">
         <span>© 2026 Accordion Advisory</span>
