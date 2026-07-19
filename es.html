@@ -116,7 +116,7 @@ body{
 
 /* DJ / mixer faders — echoes changing the RMS weights */
 /* ---- INSERT COIN ---- */
-.coin{margin-top:34px;width:100%;max-width:440px;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--grid);
+.coin{margin:34px auto 0;width:100%;max-width:440px;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--grid);
   border-radius:4px;padding:20px 20px 18px;text-align:left}
 .coin-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .slot-lbl{font-family:var(--px);font-size:10px;color:var(--amber);letter-spacing:.02em}
@@ -133,7 +133,7 @@ body{
   70%{opacity:1;transform:translateY(22px) rotateY(360deg) scale(.9)}
   100%{opacity:0;transform:translateY(30px) rotateY(540deg) scaleX(.15)}
 }
-.coin-form{display:flex;gap:8px;flex-wrap:wrap}
+.coin-form{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
 .coin-form input{flex:1;min-width:170px;background:#0A1524;border:2px solid var(--grid);border-radius:2px;
   color:var(--txt);font-family:var(--mono);font-size:13px;padding:12px}
 .coin-form input:focus{outline:none;border-color:var(--amber)}
@@ -155,9 +155,9 @@ body{
 .credits .row span{font-family:var(--mono);font-size:12px;color:var(--dim);opacity:.75}
 
 /* SELECT */
-.h2{font-family:var(--body);font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.1;letter-spacing:-.015em;color:var(--txt);margin-bottom:12px}
+.h2{font-family:var(--body);font-weight:800;font-size:clamp(26px,3.6vw,40px);line-height:1.1;letter-spacing:-.015em;color:var(--txt);margin-bottom:12px;text-align:center}
 .h2 .c2{color:var(--neon)}
-.hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:32px}
+.hint{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:32px;text-align:center}
 .menu{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .slot.feat{border-color:var(--neon);background:linear-gradient(180deg,rgba(53,208,255,.10),var(--panel));
   box-shadow:0 0 0 1px rgba(53,208,255,.25),0 22px 50px -30px rgba(53,208,255,.7)}
@@ -248,7 +248,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .demo-note{font-family:var(--mono);font-size:10.5px;color:var(--dim);margin-top:14px;line-height:1.6}
 .wl{margin-top:22px;border-top:2px solid var(--grid);padding-top:18px}
 .wl p{font-size:14px;color:var(--txt);margin-bottom:10px}
-.wl form{display:flex;gap:8px;flex-wrap:wrap}
+.wl form{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
 .wl input[type=email]{flex:1;min-width:180px;background:#0A1524;border:2px solid var(--grid);border-radius:2px;
   color:var(--txt);font-family:var(--mono);font-size:13px;padding:12px}
 .wl input[type=email]:focus{outline:none;border-color:var(--neon)}
@@ -318,7 +318,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 @media(max-width:680px){ .players{grid-template-columns:1fr} }
 
 /* end-of-screen navigation */
-.endnav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+.endnav{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;
   margin-top:44px;padding-top:24px;border-top:2px solid var(--grid)}
 
 /* mobile pad */
@@ -374,6 +374,12 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   .map-hint{display:none}
   #attract .big{font-size:clamp(17px,6vw,28px)}
   .kbtn{font-size:10px;padding:13px 15px}
+  /* forms stack full width so no button is left dangling */
+  .coin-form input,.wl form input{flex:1 1 100%;min-width:0}
+  .coin-form button,.wl form button{flex:1 1 100%;width:100%}
+  .big-start{min-width:0;width:100%;font-size:14px;padding:18px 20px}
+  .start-wrap{width:100%}
+  .endnav .kbtn{flex:1 1 auto}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
