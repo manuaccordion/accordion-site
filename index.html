@@ -259,6 +259,15 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .rmslab-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px}
 .rmslab-head .rl-name{font-family:var(--px);font-size:10px;color:#DCEEFB;line-height:1.6;letter-spacing:.02em}
 .rmslab-head .rl-name b{color:#35D0FF}
+.rmslab .wlive{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:2px 0 12px}
+.rmslab .wlive .wl-rate{font-family:var(--px);font-size:26px;color:var(--neon);text-shadow:0 0 18px rgba(53,208,255,.5)}
+.rmslab .wlive .wl-rate.bump{animation:rmsbump .35s ease}
+.rmslab .wlive .wl-delta{font-family:var(--mono);font-weight:700;font-size:13px}
+.rmslab .kpi .kv small{font-family:var(--mono);font-size:11px;color:var(--dim);font-weight:400;margin-left:4px}
+.rmslab .rankbar{display:flex;gap:4px;margin:6px 0 6px}
+.rmslab .rankbar i{flex:1;height:7px;border-radius:3px;background:#0A1524;border:1px solid var(--grid)}
+.rmslab .rankbar i.on{background:var(--neon);border-color:var(--neon);box-shadow:0 0 10px rgba(53,208,255,.5)}
+.rmslab .rk-legend{font-family:var(--mono);font-size:9.5px;color:var(--dim);opacity:.75;margin-top:4px;line-height:1.4}
 .rmslab html{min-height:100%}
 .rmslab .demochip{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   color:var(--amber);border:1.5px solid var(--amber);border-radius:3px;padding:5px 8px}
@@ -634,6 +643,10 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
           </section>
 
           <section class="face back" id="face-back">
+            <div class="wlive">
+              <span class="wl-rate" id="wrate">&mdash;</span>
+              <span class="wl-delta" id="wdelta"></span>
+            </div>
             <div class="wtot">
               <h4>Rate composition</h4>
               <span class="sum" id="wsum">100 / 100</span>
@@ -1110,6 +1123,9 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     var gap = marketIdx - occ, within = Math.abs(gap) < 0.05;
 
     // F · Reviews — your rating vs the comp set average
+    var pick7   = Math.round(rnd(s+73) * 3);
+    var pick7Ly = Math.round(rnd(s+79) * 2);
+    var rank    = 1 + Math.round(rnd(s+83) * 2);          // #1 cheapest … #3 priciest
     var myRating   = Math.round((4.10 + rnd(s+67) * 0.85) * 100) / 100;
     var compRating = Math.round((4.10 + rnd(s+71) * 0.75) * 100) / 100;
     var revGap     = myRating - compRating;
@@ -1139,7 +1155,8 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
         myOnline:myOnline, compset:compset, compRatio:compRatio,
         searches:searches, median:median,
         marketIdx:marketIdx, gap:gap, within:within,
-        myRating:myRating, compRating:compRating, revGap:revGap
+        myRating:myRating, compRating:compRating, revGap:revGap,
+        pick7:pick7, pick7Ly:pick7Ly, rank:rank
       }
     };
   }
@@ -1276,11 +1293,26 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     var occD = d.occ - d.occLy, adrD = (d.adr && d.adrLy) ? (d.adr - d.adrLy) / d.adrLy : null;
     var pos = d.dbg.myOnline - d.dbg.compset;
     document.getElementById('kpis').innerHTML =
-      kpi('Occupancy', (d.occ*100).toFixed(0) + '%', (occD>=0?'+':'−') + Math.abs(occD*100).toFixed(0) + ' pt vs LY', col(occD)) +
-      kpi('ADR on books', d.adr ? eur(d.adr) : '—', adrD === null ? 'no bookings yet' : pct(adrD) + ' vs LY', adrD === null ? 'var(--dim)' : col(adrD)) +
-      kpi('Recent pickup', d.dbg.pickupCount + ' bkg', d.dbg.pickupCount ? 'last 8 days' : 'no signal', d.dbg.pickupCount ? 'var(--green)' : 'var(--dim)') +
-      kpi('Price position', eur(d.dbg.myOnline), 'comp set ' + eur(d.dbg.compset) + ' (' + eur1(pos) + ')', col(pos));
+      kpi('Occupancy', (d.occ*100).toFixed(0) + '% <small>' + d.otb + '/' + d.units + '</small>', (occD>=0?'+':'−') + Math.abs(occD*100).toFixed(0) + ' pt vs LY', col(occD)) +
+      kpi('ADR OTB', d.adr ? eur(d.adr) : '—', adrD === null ? 'no bookings yet' : pct(adrD) + ' vs LY', adrD === null ? 'var(--dim)' : col(adrD)) +
+      kpi('Pickup · last 7 days', d.dbg.pick7 + ' rn',
+          'LY ' + d.dbg.pick7Ly + ' · ' + ((d.dbg.pick7-d.dbg.pick7Ly)>=0?'+':'−') +
+          Math.abs(d.dbg.pick7-d.dbg.pick7Ly) + ' rn vs LY', col(d.dbg.pick7-d.dbg.pick7Ly)) +
+      rankKpi(d, pos);
   }
+  function rankKpi(d, pos){
+    var g = d.dbg, seg = '';
+    for (var i=1; i<=3; i++){
+      seg += '<i class="rk' + (i===g.rank ? ' on' : '') + '"></i>';
+    }
+    return '<div class="kpi wide"><div class="kl">Price position</div>' +
+           '<div class="kv">#' + g.rank + ' <small>of 3</small></div>' +
+           '<div class="rankbar">' + seg + '</div>' +
+           '<div class="kd" style="color:' + col(pos) + '">comp set avg ' + eur(g.compset) +
+           ' · you ' + eur(g.myOnline) + ' (' + eur1(pos) + ')</div>' +
+           '<div class="rk-legend">#1 = cheapest · #3 = priciest</div></div>';
+  }
+
   function kpi(l, v, sub, c){
     return '<div class="kpi"><div class="kl">' + l + '</div><div class="kv">' + v +
            '</div><div class="kd" style="color:' + c + '">' + sub + '</div></div>';
@@ -1328,6 +1360,17 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 
   function paint(){
     var r = compute();
+    var wr = document.getElementById('wrate'), wd = document.getElementById('wdelta');
+    if (wr){
+      var prevTxt = wr.textContent;
+      wr.textContent = eur(r.price);
+      if (prevTxt !== wr.textContent){ wr.classList.remove('bump'); void wr.offsetWidth; wr.classList.add('bump'); }
+    }
+    if (wd){
+      var dd = r.price - r.ref;
+      wd.textContent = eur1(dd);
+      wd.style.color = dd > 0.05 ? 'var(--green)' : (dd < -0.05 ? 'var(--pink)' : 'var(--dim)');
+    }
     document.getElementById('wsum').textContent = Math.round(FACTORS.reduce(function(a,f){ return a + S.w[f.k]; }, 0)) + ' / 100';
     FACTORS.forEach(function(f){
       var dev = S.day.sig[f.k], c = r.contrib[f.k];
