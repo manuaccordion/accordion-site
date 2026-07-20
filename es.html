@@ -267,7 +267,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .rmslab .rankbar{display:flex;gap:4px;margin:6px 0 6px}
 .rmslab .rankbar i{flex:1;height:7px;border-radius:3px;background:#0A1524;border:1px solid var(--grid)}
 .rmslab .rankbar i.on{background:var(--neon);border-color:var(--neon);box-shadow:0 0 10px rgba(53,208,255,.5)}
-.rmslab .rk-legend{font-family:var(--mono);font-size:9.5px;color:var(--dim);opacity:.75;margin-top:4px;line-height:1.4}
+.rmslab .rk-legend{font-family:var(--mono);font-size:9px;color:var(--dim);opacity:.7;margin-top:3px;line-height:1.35}
 .rmslab html{min-height:100%}
 .rmslab .demochip{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   color:var(--amber);border:1.5px solid var(--amber);border-radius:3px;padding:5px 8px}
@@ -315,11 +315,11 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .rmslab .readout .rate.bump{animation:rmsbump .35s ease}
 @keyframes rmsbump{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
 .rmslab .readout .delta{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:5px 14px;border-radius:8px;display:inline-block}
-.rmslab .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 4px;text-align:left}
-.rmslab .kpi{background:#0A1524;border:2px solid var(--grid);border-radius:3px;padding:9px 10px}
-.rmslab .kpi .kl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.rmslab .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 4px;text-align:left;align-items:stretch}
+.rmslab .kpi{background:#0A1524;border:2px solid var(--grid);border-radius:3px;padding:9px 10px;display:flex;flex-direction:column;justify-content:flex-start}
+.rmslab .kpi .kl{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);min-height:2.2em}
 .rmslab .kpi .kv{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--txt);margin:5px 0 2px;line-height:1.35}
-.rmslab .kpi .kd{font-family:var(--mono);font-size:11px}
+.rmslab .kpi .kd{font-family:var(--mono);font-size:10.5px;line-height:1.45;margin-top:auto}
 .rmslab .kpi.wide{grid-column:1/-1}
 .rmslab .flip-btn{width:100%;margin-top:16px;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.02em;cursor:pointer;
   color:var(--neon);background:transparent;border:2px solid var(--grid);border-radius:4px;padding:13px;transition:.15s}
@@ -1305,12 +1305,12 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     for (var i=1; i<=3; i++){
       seg += '<i class="rk' + (i===g.rank ? ' on' : '') + '"></i>';
     }
-    return '<div class="kpi wide"><div class="kl">Price position</div>' +
+    return '<div class="kpi"><div class="kl">Price position</div>' +
            '<div class="kv">#' + g.rank + ' <small>of 3</small></div>' +
            '<div class="rankbar">' + seg + '</div>' +
-           '<div class="kd" style="color:' + col(pos) + '">comp set avg ' + eur(g.compset) +
-           ' · you ' + eur(g.myOnline) + ' (' + eur1(pos) + ')</div>' +
-           '<div class="rk-legend">#1 = cheapest · #3 = priciest</div></div>';
+           '<div class="kd" style="color:' + col(pos) + '">set ' + eur(g.compset) +
+           ' · you ' + eur(g.myOnline) + '</div>' +
+           '<div class="rk-legend">#1 cheapest · #3 priciest</div></div>';
   }
 
   function kpi(l, v, sub, c){
@@ -1408,7 +1408,10 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   var flip = document.getElementById('flip');
   document.getElementById('to-back').addEventListener('click', function(e){ e.stopPropagation(); flip.classList.add('flipped'); });
   document.getElementById('to-front').addEventListener('click', function(e){ e.stopPropagation(); flip.classList.remove('flipped'); });
-  document.getElementById('face-front').addEventListener('click', function(){ flip.classList.add('flipped'); });
+  document.getElementById('face-front').addEventListener('click', function(e){
+    if (e.target.closest && e.target.closest('input, button, a')) return;
+    flip.classList.add('flipped');
+  });
   document.getElementById('reset').addEventListener('click', function(e){
     e.stopPropagation(); S.w = Object.assign({}, DEFAULT_W); renderFactors();
   });
@@ -1430,6 +1433,12 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   // horizontal swipe on the card = change day
   var x0 = null, y0 = null, decided = false, horiz = false;
   flip.addEventListener('touchstart', function(e){
+    // never hijack a gesture that starts on a control, and never swipe while the
+    // weights side is showing (dragging a fader would otherwise change day)
+    if (flip.classList.contains('flipped') ||
+        (e.target.closest && e.target.closest('input, button, a, label, .fac'))){
+      x0 = y0 = null; decided = false; horiz = false; return;
+    }
     var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; decided = false; horiz = false;
   }, {passive:true});
   flip.addEventListener('touchmove', function(e){
