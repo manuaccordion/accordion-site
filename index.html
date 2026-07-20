@@ -230,14 +230,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .readout .rate{font-family:var(--px);font-size:clamp(26px,5vw,40px);color:var(--neon);margin:10px 0 6px;
   text-shadow:0 0 22px rgba(53,208,255,.55)}
 .readout .delta{font-family:var(--mono);font-size:12px;letter-spacing:.08em}
-/* featured price banner at the top of the RMS Lab */
-.rate-hero{text-align:center;background:linear-gradient(180deg,rgba(53,208,255,.10),var(--panel));
   border:2px solid var(--neon);border-radius:6px;padding:26px 20px 24px;margin:0 auto 24px;max-width:640px;
   box-shadow:0 0 0 1px rgba(53,208,255,.15),0 30px 60px -34px rgba(53,208,255,.6)}
-.rate-hero .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-.rate-hero .rate{font-family:var(--px);font-size:clamp(40px,8vw,68px);color:var(--neon);margin:12px 0 10px;
-  text-shadow:0 0 30px rgba(53,208,255,.6)}
-.rate-hero .delta{font-family:var(--mono);font-size:13.5px;letter-spacing:.04em}
 .up{color:var(--good)}.down{color:var(--bad)}.flat{color:var(--dim)}
 .why{list-style:none}
 .why li{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;
@@ -254,6 +248,130 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .wl input[type=email]:focus{outline:none;border-color:var(--neon)}
 
 /* MAP */
+
+/* ================= RMS Lab console (demo, self-contained) ================= */
+.rmslab{
+  --void:#070B14; --cab:#0C1421; --panel:#111C2E; --grid:#1B2C46;
+  --neon:#35D0FF; --neon-dim:#1E86C0; --amber:#FFC542; --pink:#FF4D9D; --green:#4CE0A8;
+  --txt:#DCEEFB; --dim:#7E9BB8;
+  max-width:470px;margin:0 auto;padding:0 18px;
+}
+.rmslab-head{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px}
+.rmslab-head .rl-name{font-family:var(--px);font-size:10px;color:#DCEEFB;line-height:1.6;letter-spacing:.02em}
+.rmslab-head .rl-name b{color:#35D0FF}
+.rmslab html{min-height:100%}
+.rmslab .demochip{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--amber);border:1.5px solid var(--amber);border-radius:3px;padding:5px 8px}
+.rmslab .kbtn{font-family:var(--mono);font-weight:700;font-size:12px;line-height:1.5;letter-spacing:.02em;cursor:pointer;
+  background:var(--neon);color:var(--void);border:0;border-radius:3px;padding:11px 13px;
+  box-shadow:0 4px 0 #12688F;transition:transform .06s, box-shadow .06s}
+.rmslab .kbtn:active{transform:translateY(3px);box-shadow:0 1px 0 #12688F}
+.rmslab .kbtn.alt{background:transparent;color:var(--txt);border:2px solid var(--grid);box-shadow:0 4px 0 #0A1524}
+.rmslab .kbtn.alt:active{box-shadow:0 1px 0 #0A1524}
+.rmslab .kbtn.sm{font-size:9px;padding:9px 10px}
+.rmslab .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0 14px}
+.rmslab .pill{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  background:#0A1524;color:var(--dim);border:2px solid var(--grid);border-radius:2px;padding:9px 11px;cursor:pointer;transition:.15s}
+.rmslab .pill:hover{color:var(--txt);border-color:var(--neon-dim)}
+.rmslab .pill.on{background:var(--neon);color:var(--void);border-color:var(--neon);font-weight:600}
+.rmslab .deck-head{display:flex;align-items:center;gap:8px;max-width:440px;margin:16px auto 6px}
+.rmslab .deck-head .arw{font-family:var(--px);font-size:11px;background:#0A1524;color:var(--txt);border:2px solid var(--grid);
+  border-radius:2px;padding:12px;cursor:pointer;min-width:44px}
+.rmslab .deck-head .arw:hover{border-color:var(--neon-dim)}
+.rmslab .deck-head .dlabel{flex:1;text-align:center;background:#0A1524;border:2px solid var(--grid);border-radius:2px;
+  color:var(--txt);font-family:var(--mono);font-size:13px;padding:12px 10px}
+.rmslab .swipe-hint{text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);margin:0 0 12px;opacity:.7}
+.rmslab .deck{position:relative;max-width:440px;margin:0 auto;min-height:560px;perspective:1600px}
+.rmslab .ghost{position:absolute;top:24px;bottom:24px;width:26px;border:2px solid var(--grid);border-radius:6px;
+  background:linear-gradient(180deg,#0E1929,#0A1420);opacity:.55;pointer-events:none;z-index:0}
+.rmslab .ghost.prev{left:-14px}
+.rmslab .ghost.next{right:-14px}
+.rmslab .flip{position:relative;width:100%;transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.4,.15,.2,1);z-index:2;touch-action:pan-y}
+.rmslab .flip.flipped{transform:rotateY(180deg)}
+.rmslab .flip.dragging{transition:none}
+.rmslab .face{position:relative;-webkit-backface-visibility:hidden;backface-visibility:hidden;
+  background:var(--panel);border:2px solid var(--grid);border-radius:8px;padding:18px 16px 16px;
+  box-shadow:0 18px 40px -20px rgba(7,11,20,.95)}
+.rmslab .face.front{cursor:pointer}
+.rmslab .face.back{position:absolute;inset:0;transform:rotateY(180deg);overflow-y:auto}
+.rmslab .fday{text-align:center;font-family:var(--mono);font-weight:700;font-size:15px;color:var(--amber);margin-bottom:8px;letter-spacing:.04em}
+.rmslab .fday small{display:block;font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:5px;letter-spacing:.04em}
+.rmslab .fday .evt{color:var(--pink)}
+.rmslab .readout{text-align:center;padding:6px 10px 16px;border-bottom:2px solid var(--grid);margin-bottom:16px}
+.rmslab .readout .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.rmslab .readout .rate{font-family:var(--px);font-size:clamp(30px,9vw,44px);color:var(--neon);margin:12px 0 8px;
+  text-shadow:0 0 22px rgba(53,208,255,.55)}
+.rmslab .readout .rate.bump{animation:rmsbump .35s ease}
+@keyframes rmsbump{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+.rmslab .readout .delta{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.04em;padding:5px 14px;border-radius:8px;display:inline-block}
+.rmslab .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:0 0 4px;text-align:left}
+.rmslab .kpi{background:#0A1524;border:2px solid var(--grid);border-radius:3px;padding:9px 10px}
+.rmslab .kpi .kl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.rmslab .kpi .kv{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--txt);margin:5px 0 2px;line-height:1.35}
+.rmslab .kpi .kd{font-family:var(--mono);font-size:11px}
+.rmslab .kpi.wide{grid-column:1/-1}
+.rmslab .flip-btn{width:100%;margin-top:16px;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.02em;cursor:pointer;
+  color:var(--neon);background:transparent;border:2px solid var(--grid);border-radius:4px;padding:13px;transition:.15s}
+.rmslab .flip-btn:hover{border-color:var(--neon);background:rgba(53,208,255,.08)}
+.rmslab .wtot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 16px}
+.rmslab .wtot h4{font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.04em;color:var(--neon)}
+.rmslab .wtot span.sum{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--void);background:var(--amber);padding:6px 9px;border-radius:2px}
+.rmslab .fac{margin-bottom:20px}
+.rmslab .fac .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rmslab .fac .nm{font-family:var(--mono);font-size:12.5px;color:var(--txt);letter-spacing:.02em}
+.rmslab .fac .wv{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--amber);min-width:34px;text-align:right}
+.rmslab .fac .ds{font-size:12px;color:var(--dim);margin:2px 0 4px;line-height:1.45}
+.rmslab .fac .sig{font-family:var(--mono);font-size:11px;margin:0}
+.rmslab .fac .fac-line{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:0 0 5px}
+.rmslab .fac .fac-eur{font-family:var(--mono);font-weight:700;font-size:13px;white-space:nowrap}
+.rmslab .fac.na .nm{opacity:.5}
+.rmslab .fac.na .ds{opacity:.5}
+.rmslab .fac.na .wv{color:var(--dim)}
+.rmslab .fac .fac-i{background:none;border:1px solid var(--grid);color:var(--dim);border-radius:50%;width:18px;height:18px;
+  font-size:11px;line-height:1;cursor:pointer;padding:0;margin-left:6px;vertical-align:middle}
+.rmslab .fac .fac-i:hover{border-color:var(--neon);color:var(--neon)}
+.rmslab .fac .fac-note{font-size:11.5px;color:var(--dim);line-height:1.55;background:rgba(255,255,255,.03);
+  border-left:2px solid var(--neon);border-radius:6px;padding:9px 11px;margin:2px 0 7px}
+.rmslab .fac .fac-note .fn-how{font-family:var(--body);color:var(--dim);margin-bottom:6px}
+.rmslab .fac .fac-note .fn-l{font-family:var(--mono);font-size:11px;color:var(--txt);opacity:.9;margin:2px 0}
+.rmslab .fac .fac-note .fn-l b{color:var(--neon);font-weight:700}
+.rmslab .fac .fac-note .fn-fin b{color:var(--neon);font-weight:700}
+.rmslab .fac .fac-note .fn-fin{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:6px;padding-top:5px;border-top:1px dashed var(--grid)}
+.rmslab .comp-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-family:var(--mono);font-size:12.5px;
+  padding:8px 0;border-bottom:1px solid var(--grid)}
+.rmslab .comp-row .cr-lbl{color:var(--txt)}
+.rmslab .comp-row .cr-lbl small{opacity:.6;font-size:10.5px}
+.rmslab .comp-row .cr-eur{font-weight:700;white-space:nowrap}
+.rmslab .comp-row .cr-eur.up{color:var(--green)}
+.rmslab .comp-row .cr-eur.down{color:var(--pink)}
+.rmslab .comp-row.soft{opacity:.45}
+.rmslab .comp-row.comp-base{border-top:2px solid var(--grid);margin-top:2px}
+.rmslab .comp-row.comp-total{border-bottom:none;border-top:2px solid var(--grid);margin-top:2px}
+.rmslab .comp-row.comp-total .cr-lbl{color:var(--neon);font-weight:700}
+.rmslab .comp-row.comp-total .cr-eur{color:var(--neon);font-size:16px}
+.rmslab input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:52px;background:transparent;cursor:pointer;touch-action:none}
+.rmslab input[type=range]::-webkit-slider-runnable-track{height:16px;background:#0A1524;border:1px solid var(--grid);border-radius:8px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.55)}
+.rmslab input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:44px;margin-top:-14px;
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,.34) 0 1px, transparent 1px 4px) center/22px 22px no-repeat,
+    linear-gradient(180deg,#FFD873 0%,var(--amber) 46%,#E5A81E 54%,#B9791A 100%);
+  border:1px solid #7A5A18;border-radius:7px;
+  box-shadow:0 3px 6px rgba(0,0,0,.5), 0 0 14px rgba(255,197,66,.55), inset 0 0 0 2px rgba(0,0,0,.28);cursor:grab}
+.rmslab input[type=range]::-moz-range-track{height:16px;background:#0A1524;border:1px solid var(--grid);border-radius:8px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.55)}
+.rmslab input[type=range]::-moz-range-thumb{width:34px;height:44px;
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,.34) 0 1px, transparent 1px 4px) center/22px 22px no-repeat,
+    linear-gradient(180deg,#FFD873 0%,var(--amber) 46%,#E5A81E 54%,#B9791A 100%);
+  border:1px solid #7A5A18;border-radius:7px;
+  box-shadow:0 3px 6px rgba(0,0,0,.5), 0 0 14px rgba(255,197,66,.55), inset 0 0 0 2px rgba(0,0,0,.28)}
+.rmslab .wactions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.rmslab .wactions .kbtn{width:100%}
+.rmslab .disclaim{max-width:440px;margin:14px auto 0;text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--dim);line-height:1.6}
+
 /* ---- "on the ground" block inside PLAYERS ---- */
 .ground{margin-top:34px;padding-top:26px;border-top:1px solid var(--grid)}
 .ground-head{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:18px}
@@ -485,37 +603,62 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     <div class="shead"><span class="badge">Coming soon</span><h2 class="h2">Bonus stage: RMS Lab</h2></div>
     <p class="lead">A revenue management system for short-term rental apartments (STR), with an algorithm you can actually understand. Move the weights: the rate moves with them, and every euro is explained.</p>
 
-    <div class="rate-hero">
-      <div class="lbl">Recommended rate</div>
-      <div class="rate" id="rate">€120</div>
-      <div class="delta flat" id="delta">Base rate: €120</div>
-    </div>
-
-    <div class="lab">
-      <div class="pane">
-        <div class="wtot"><h4 style="margin:0">Factor weights</h4><span id="wsum">100 / 100</span></div>
-<div class="fac"><div class="top"><span class="nm">Daily Pickup</span><span class="wv" id="wv0">17</span></div><div class="ds">How many rooms sold today</div><input type="range" min="0" max="100" value="17" data-f="0" aria-label="Daily Pickup"></div>
-<div class="fac"><div class="top"><span class="nm">Pace Trend</span><span class="wv" id="wv1">17</span></div><div class="ds">Bookings vs the same point last year</div><input type="range" min="0" max="100" value="17" data-f="1" aria-label="Pace Trend"></div>
-<div class="fac"><div class="top"><span class="nm">Online Pricing</span><span class="wv" id="wv2">17</span></div><div class="ds">What the comp set is charging</div><input type="range" min="0" max="100" value="17" data-f="2" aria-label="Online Pricing"></div>
-<div class="fac"><div class="top"><span class="nm">Demand</span><span class="wv" id="wv3">17</span></div><div class="ds">Search and demand pressure</div><input type="range" min="0" max="100" value="17" data-f="3" aria-label="Demand"></div>
-<div class="fac"><div class="top"><span class="nm">AirDNA Market</span><span class="wv" id="wv4">16</span></div><div class="ds">Short-term rental market signal</div><input type="range" min="0" max="100" value="16" data-f="4" aria-label="AirDNA Market"></div>
-<div class="fac"><div class="top"><span class="nm">Reviews</span><span class="wv" id="wv5">16</span></div><div class="ds">Rating and reputation</div><input type="range" min="0" max="100" value="16" data-f="5" aria-label="Reviews"></div>
-        <button class="kbtn alt" id="resetW" style="margin-top:6px">Reset weights</button>
+    <div class="rmslab">
+      <div class="rmslab-head">
+        <span class="rl-name">RMS <b>//</b> PRICING CONSOLE</span>
+        <span class="demochip">Demo</span>
       </div>
-      <div class="pane">
-        <h4>Why this rate</h4>
-        <ul class="why" id="why"></ul>
-        <p class="demo-note">Demo with sample signals. The real engine reads your live data.</p>
-        <div class="wl">
-          <p>Want to be first in line when it's ready?</p>
-          <form class="wl-form" novalidate>
-            <input type="email" name="email" placeholder="you@email.com" required aria-label="email">
-            <button class="kbtn amber" type="submit">Join the waiting list</button>
-          </form>
-          <p class="wl-msg coin-msg" role="status"></p>
+
+      <div class="bar" id="props"></div>
+
+      <div class="deck-head">
+        <button class="arw" id="d-prev" type="button" aria-label="Previous day">&#9664;</button>
+        <div class="dlabel" id="d-label">&mdash;</div>
+        <button class="arw" id="d-next" type="button" aria-label="Next day">&#9654;</button>
+      </div>
+      <p class="swipe-hint">&lsaquo; swipe days · tap to flip &rsaquo;</p>
+
+      <div class="deck">
+        <div class="ghost prev"></div>
+        <div class="ghost next"></div>
+        <div class="flip" id="flip">
+          <section class="face front" id="face-front">
+            <div class="fday" id="fday">&mdash;</div>
+            <div class="readout">
+              <div class="lbl">Recommended rate</div>
+              <div class="rate" id="rate">&mdash;</div>
+              <div class="delta" id="delta"></div>
+            </div>
+            <div class="kpis" id="kpis"></div>
+            <button class="flip-btn" id="to-back" type="button">Adjust weights &#9656;</button>
+          </section>
+
+          <section class="face back" id="face-back">
+            <div class="wtot">
+              <h4>Rate composition</h4>
+              <span class="sum" id="wsum">100 / 100</span>
+            </div>
+            <div id="facs"></div>
+            <div class="wactions">
+              <button class="kbtn alt sm" id="reset" type="button">&#8634; Reset weights</button>
+              <button class="kbtn sm" id="to-front" type="button">&#8634; Back to price</button>
+            </div>
+          </section>
         </div>
       </div>
+
+      <p class="disclaim">Sample apartments and sample nights. The live system reads your own bookings, comp set and market data.</p>
     </div>
+
+    <div class="wl" id="waiting-list">
+      <p>Want to be first in line when it's ready?</p>
+      <form class="wl-form" novalidate>
+        <input type="email" name="email" placeholder="you@email.com" required aria-label="email">
+        <button class="kbtn amber" type="submit">Join the waiting list</button>
+      </form>
+      <p class="wl-msg coin-msg" role="status"></p>
+    </div>
+
     <div class="endnav">
       <button class="kbtn alt" data-go="select">Menu</button>
       <button class="kbtn amber" data-home="1">▸ Play again</button>
@@ -624,18 +767,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 
 <script>
 (function(){
-  var FACTORS = ["Daily Pickup","Pace Trend","Online Pricing","Demand","AirDNA Market","Reviews"];
-  var BASE = 120;
-  // per-factor impact (% on the base rate if that factor held 100% of the weight).
-  // Mixed signs make it lively: some factors push the price up, some pull it down.
-  var SIGNALS = {
-    quiet:  [-18,-14,-30,-22,-10, -8],
-    normal: [ 30, 20,-28, 40, 14,-18],
-    event:  [ 44, 34, -8, 52, 26,  6]
-  };
-  var scenario = 'normal';
-  var DEFAULT  = [17,17,17,17,16,16];   // always sums to 100
-  var weights  = DEFAULT.slice();
 
   var screens = ['attract','select','strategy','rms','players'];
   var navBtns = document.getElementById('navBtns');
@@ -653,7 +784,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     document.getElementById('backBtn').style.opacity = history.length===0 ? '.4' : '1';
     window.scrollTo(0,0);
     if(id==='players') startTour(); else stopTour();
-    if(id==='rms') paint();
     current = id;
   }
   function goBack(){
@@ -693,91 +823,6 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
     if(e.key==='ArrowLeft' ||e.key==='ArrowUp'){ pick=(pick-1+slots.length)%slots.length; mark(); e.preventDefault(); }
     if(e.key==='Enter'){ slots[pick].click(); }
   });
-
-  /* ---- RMS LAB ---- */
-  var rateEl=document.getElementById('rate');
-  var deltaEl=document.getElementById('delta');
-  var whyEl=document.getElementById('why');
-
-  var sliders=Array.prototype.slice.call(document.querySelectorAll('input[type=range]'));
-  var sumEl=document.getElementById('wsum');
-
-  // keep the six weights adding up to exactly 100
-  function normalize(moved){
-    var v=Math.round(weights[moved]);
-    if(v>100) v=100; if(v<0) v=0;
-    weights[moved]=v;
-    var rest=100-v;
-    var others=[], othersSum=0;
-    for(var i=0;i<weights.length;i++){
-      if(i!==moved){ others.push(i); othersSum+=weights[i]; }
-    }
-    if(othersSum<=0){
-      // spread what's left evenly
-      var each=Math.floor(rest/others.length);
-      others.forEach(function(i){ weights[i]=each; });
-    } else {
-      others.forEach(function(i){ weights[i]=Math.round(weights[i]/othersSum*rest); });
-    }
-    // fix any rounding drift on the largest 'other'
-    var total=weights.reduce(function(a,b){return a+b;},0);
-    if(total!==100 && others.length){
-      var big=others[0];
-      others.forEach(function(i){ if(weights[i]>weights[big]) big=i; });
-      weights[big]+=100-total;
-      if(weights[big]<0) weights[big]=0;
-    }
-    paint();
-  }
-
-  function paint(){
-    sliders.forEach(function(r,i){
-      r.value=weights[i];
-      document.getElementById('wv'+i).textContent=weights[i];
-    });
-    var t=weights.reduce(function(a,b){return a+b;},0);
-    sumEl.textContent=t+' / 100';
-    compute();
-  }
-
-  function compute(){
-    var sig=SIGNALS[scenario];
-    var adj=0, contrib=[];
-    for(var i=0;i<FACTORS.length;i++){
-      var c=(weights[i]/100)*sig[i];      // weights already total 100
-      adj+=c; contrib.push(c);
-    }
-    var rate=BASE*(1+adj/100);
-    rateEl.textContent='€'+rate.toFixed(0);
-    var diff=rate-BASE;
-    deltaEl.className='delta '+(diff>0.5?'up':(diff<-0.5?'down':'flat'));
-    deltaEl.textContent='Base rate'+': €'+BASE+'  →  '+(diff>=0?'+':'')+diff.toFixed(1)+' €  ('+(adj>=0?'+':'')+adj.toFixed(1)+'%)';
-
-    var max=Math.max.apply(null, contrib.map(Math.abs)) || 1;
-    whyEl.innerHTML='';
-    for(var j=0;j<FACTORS.length;j++){
-      var eur=BASE*contrib[j]/100;
-      var li=document.createElement('li');
-      var pos=contrib[j]>=0;
-      li.innerHTML='<span>'+FACTORS[j]+' <small style="opacity:.65">· '+weights[j]+'%</small></span>'+
-                   '<b class="'+(pos?'up':'down')+'">'+(pos?'+':'')+eur.toFixed(1)+' €</b>'+
-                   '<span class="cbar"><i style="width:'+(Math.abs(contrib[j])/max*100).toFixed(0)+'%;background:'+(pos?'#4FE0A6':'#FF6B7D')+'"></i></span>';
-      whyEl.appendChild(li);
-    }
-  }
-
-  sliders.forEach(function(r){
-    r.addEventListener('input', function(){
-      var i=+r.dataset.f;
-      weights[i]=+r.value;
-      normalize(i);
-    });
-  });
-  document.getElementById('resetW').addEventListener('click', function(){
-    weights=DEFAULT.slice();
-    paint();
-  });
-  paint();
 
   /* ---- LIVES: stray clicks in the menu cost a life ---- */
   var MAXLIVES=7;
@@ -977,6 +1022,391 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   var box=document.querySelector('.mapbox');
   box.addEventListener('mouseenter',function(){ paused=true; stopTour(); });
   box.addEventListener('mouseleave',function(){ paused=false; if(!timer) timer=setTimeout(step,400); });
+})();
+
+
+/* ============ RMS Lab pricing console (demo engine) ============ */
+
+(function(){
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     Demo engine. Same shape as the live one (base price + weighted
+     signals), but every number here is generated from a fixed seed:
+     no real bookings, no real property names.
+  ------------------------------------------------------------------ */
+
+  var FACTORS = [
+    { k:'pickup', code:'A', name:'Daily Pickup',   ds:'Rooms sold today vs the expected fill rate' },
+    { k:'pace',   code:'B', name:'Pace Trend',     ds:'Booking pace vs the same point last year' },
+    { k:'comp',   code:'C', name:'Online Pricing', ds:'Your price vs the weighted comp set' },
+    { k:'demand', code:'D', name:'Demand',         ds:'Searches vs the monthly median' },
+    { k:'market', code:'E', name:'STR Market',     ds:'Market occupancy vs yours — headroom signal' },
+    { k:'rev',    code:'F', name:'Reviews',        ds:'Your rating vs the comp set average' }
+  ];
+  var DEFAULT_W = { pickup:17, pace:17, comp:17, demand:17, market:16, rev:16 };
+
+  var PROPS = [
+    { id:'a', label:'Apartment 01', units:8, anchor:150, floor:95 },
+    { id:'b', label:'Apartment 02', units:5, anchor:210, floor:140 },
+    { id:'c', label:'Studio 03',    units:3, anchor:110, floor:70 }
+  ];
+
+  var PICKUP_BANDS = [
+    { upTo:0.20, dev:0.00 }, { upTo:0.50, dev:0.05 }, { upTo:0.70, dev:0.10 },
+    { upTo:0.90, dev:0.15 }, { upTo:1.00, dev:0.20 }
+  ];
+
+  var EVENTS = { 12:'City marathon', 23:'Design week' };   // offset in days from today
+
+  // deterministic pseudo-random, so the demo looks the same for everyone
+  function rnd(seed){ var t = seed + 0x6D2B79F5; t = Math.imul(t ^ t>>>15, t | 1);
+    t ^= t + Math.imul(t ^ t>>>7, t | 61); return ((t ^ t>>>14) >>> 0) / 4294967296; }
+
+  var DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function buildDay(prop, offset){
+    var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() + offset);
+    var dow = d.getDay(), weekend = (dow === 5 || dow === 6);
+    var s = (prop.id.charCodeAt(0) * 977) + offset * 31;
+
+    var units = prop.units;
+    var occTarget = Math.min(1, (weekend ? 0.62 : 0.34) + rnd(s) * 0.42 - (offset > 20 ? 0.18 : 0));
+    var otb = Math.max(0, Math.min(units, Math.round(occTarget * units)));
+    var occ = units ? otb / units : 0;
+
+    // base price: anchor, weekend premium, a little seasonality
+    var base = Math.round(prop.anchor * (weekend ? 1.16 : 1) * (1 + (rnd(s+7) - 0.42) * 0.12));
+
+    // A · Daily Pickup — recent bookings for this night, then the fill-rate band
+    var pickupCount = (rnd(s+11) > (offset > 25 ? 0.75 : 0.42)) ? Math.round(1 + rnd(s+13) * 2) : 0;
+    var pickupWindow = (rnd(s+17) > 0.55) ? 'primary' : 'fallback';
+    var band = null;
+    if (pickupCount > 0){
+      for (var i = 0; i < PICKUP_BANDS.length; i++){
+        if (occ <= PICKUP_BANDS[i].upTo + 0.0001){ band = { i:i, dev:PICKUP_BANDS[i].dev }; break; }
+      }
+      if (!band) band = { i:PICKUP_BANDS.length-1, dev:PICKUP_BANDS[PICKUP_BANDS.length-1].dev };
+    }
+
+    // B · Pace — 2-week blend vs same period last year
+    var paceCur = Math.round((8 + rnd(s+19) * 26) * 10) / 10;
+    var paceStly = Math.round((8 + rnd(s+23) * 24) * 10) / 10;
+    var paceRatio = paceStly > 0 ? paceCur / paceStly : 1;
+
+    // C · Online Pricing — my published price vs the weighted comp set
+    var myOnline = Math.round(base * (0.94 + rnd(s+29) * 0.20));
+    var compset  = Math.round(base * (0.92 + rnd(s+31) * 0.24));
+    var compRatio = compset > 0 ? myOnline / compset : 1;
+
+    // D · Demand — searches vs the month median
+    var median = 40000 + Math.round(rnd(s+37) * 14000);
+    var searches = Math.round(median * (0.82 + rnd(s+41) * 0.5) * (weekend ? 1.06 : 1) * (EVENTS[offset] ? 1.55 : 1));
+
+    // E · STR Market — market fill vs mine
+    var marketIdx = Math.min(0.99, 0.42 + rnd(s+43) * 0.5 + (weekend ? 0.08 : 0));
+
+    var gap = marketIdx - occ, within = Math.abs(gap) < 0.05;
+
+    // F · Reviews — your rating vs the comp set average
+    var myRating   = Math.round((4.10 + rnd(s+67) * 0.85) * 100) / 100;
+    var compRating = Math.round((4.10 + rnd(s+71) * 0.75) * 100) / 100;
+    var revGap     = myRating - compRating;
+
+    var sig = {
+      pickup: (pickupCount > 0 && band) ? band.dev : null,
+      pace:   clamp(paceRatio - 1),
+      comp:   clamp(-(compRatio - 1)),
+      demand: clamp((searches - median) / median),
+      market: within ? 0 : clamp(gap * 0.80),
+      rev:    clamp(revGap * 0.10)
+    };
+
+    var adr = otb > 0 ? Math.round(base * (0.88 + rnd(s+47) * 0.22)) : null;
+    var adrLy = Math.round(base * (0.82 + rnd(s+53) * 0.24));
+    var occLy = Math.max(0, Math.min(1, occ + (rnd(s+59) - 0.5) * 0.3));
+
+    return {
+      date:d, offset:offset, prop:prop, weekend:weekend,
+      base:base, floor:prop.floor, otb:otb, units:units, occ:occ, occLy:occLy, adr:adr, adrLy:adrLy,
+      event:EVENTS[offset] || null,
+      lastUpdate: Math.round(base * (0.9 + rnd(s+61) * 0.14)),
+      sig:sig,
+      dbg:{
+        pickupCount:pickupCount, pickupWindow:pickupWindow, band:band,
+        paceCur:paceCur, paceStly:paceStly, paceRatio:paceRatio,
+        myOnline:myOnline, compset:compset, compRatio:compRatio,
+        searches:searches, median:median,
+        marketIdx:marketIdx, gap:gap, within:within,
+        myRating:myRating, compRating:compRating, revGap:revGap
+      }
+    };
+  }
+  function clamp(v){ return Math.max(-0.5, Math.min(0.5, v)); }
+
+  var S = { prop:PROPS[0], offset:2, w:Object.assign({}, DEFAULT_W), day:null, open:{} };
+
+  var eur  = function(v){ return '€' + Math.round(v); };
+  var eur1 = function(v){ return (v < -0.05 ? '−' : '+') + '€' + Math.abs(v).toFixed(1); };
+  var pct  = function(v){ return (v >= 0 ? '+' : '−') + Math.abs(v * 100).toFixed(1) + '%'; };
+  var cls  = function(v){ return v > 0.0005 ? 'up' : (v < -0.0005 ? 'down' : 'flat'); };
+  var col  = function(v){ return v > 0.0005 ? 'var(--green)' : (v < -0.0005 ? 'var(--pink)' : 'var(--dim)'); };
+
+  // weights of signals with no data are shared out across the active ones
+  function normalized(){
+    var act = FACTORS.filter(function(f){ return S.day.sig[f.k] !== null; });
+    var sum = act.reduce(function(a,f){ return a + S.w[f.k]; }, 0), out = {};
+    FACTORS.forEach(function(f){ out[f.k] = (S.day.sig[f.k] === null || sum <= 0) ? 0 : S.w[f.k] / sum; });
+    return out;
+  }
+  function compute(){
+    var wn = normalized(), ref = S.day.lastUpdate, contrib = {}, total = 0;
+    FACTORS.forEach(function(f){
+      var dev = S.day.sig[f.k];
+      var c = (dev === null) ? 0 : ref * wn[f.k] * dev;
+      contrib[f.k] = c; total += c;
+    });
+    var eventMult = S.day.event ? 1.06 : 1;
+    var afterFactors = ref + total;
+    var eventEur = afterFactors * (eventMult - 1);
+    var raw = afterFactors + eventEur;
+    var atFloor = raw < S.day.floor;
+    var floorEur = atFloor ? (S.day.floor - raw) : 0;
+    return { ref:ref, contrib:contrib, eventEur:eventEur, floorEur:floorEur,
+             atFloor:atFloor, price:raw + floorEur, delta:total + eventEur + floorEur };
+  }
+  function setWeight(key, val){
+    val = Math.max(0, Math.min(100, Math.round(val)));
+    var others = FACTORS.filter(function(f){ return f.k !== key; });
+    var restNow = others.reduce(function(a,f){ return a + S.w[f.k]; }, 0), restTarget = 100 - val;
+    S.w[key] = val;
+    if (restNow <= 0) others.forEach(function(f){ S.w[f.k] = restTarget / others.length; });
+    else others.forEach(function(f){ S.w[f.k] = S.w[f.k] / restNow * restTarget; });
+    var acc = val, last = others[others.length-1];
+    others.forEach(function(f){
+      if (f === last) S.w[f.k] = Math.max(0, 100 - acc);
+      else { S.w[f.k] = Math.round(S.w[f.k]); acc += S.w[f.k]; }
+    });
+  }
+
+  /* ---- the ⓘ note: how each signal was computed, with this night's numbers ---- */
+  function note(k){
+    var d = S.day, g = d.dbg, h = '';
+    function How(t){ return '<div class="fn-how">' + t + '</div>'; }
+    function L(t){ return '<div class="fn-l">' + t + '</div>'; }
+    function Fin(t){ return '<div class="fn-fin">' + t + '</div>'; }
+    if (k === 'pickup'){
+      h += How('Fires only when new bookings came in for this night. <b>Primary window</b>: yesterday + today. If zero, <b>fallback</b>: the previous 7 days. Still zero → no signal. The % then depends on the fill rate. Never negative.');
+      h += L('Recent pickup: ' + (g.pickupCount > 0
+        ? '<b>' + g.pickupCount + ' booking(s)</b> in the ' + (g.pickupWindow === 'primary' ? 'primary window (yesterday+today)' : 'fallback window (8 days)')
+        : '<b>0 bookings</b> in the fallback window → stays at 0%'));
+      h += L('On the books: <b>' + d.otb + ' of ' + d.units + '</b> · fill rate <b>' + (d.occ*100).toFixed(1) + '%</b>');
+      if (g.band){
+        var b = PICKUP_BANDS[g.band.i], prev = g.band.i === 0 ? 0 : PICKUP_BANDS[g.band.i-1].upTo;
+        var lbl = g.band.i === 0 ? ('Fill ≤' + Math.round(b.upTo*100) + '%')
+                : g.band.i === PICKUP_BANDS.length-1 ? ('Fill >' + Math.round(prev*100) + '%')
+                : ('Fill ' + (Math.round(prev*100)+1) + '–' + Math.round(b.upTo*100) + '%');
+        h += L('Band matched: <b>' + lbl + ' → +' + Math.round(b.dev*100) + '%</b>');
+      } else h += L('Band matched: <b>No signal → +0%</b>');
+    } else if (k === 'pace'){
+      h += How('How fast this month is booking vs the same 2 weeks last year, weighting the most recent week <b>60%</b> and the previous one <b>40%</b>. Above 1 = faster than last year → push up.');
+      h += L('Pace last 2 weeks: <b>' + g.paceCur.toFixed(1) + ' RN</b> vs <b>' + g.paceStly.toFixed(1) + ' RN</b> last year');
+      h += L('Pace ratio: <b>' + g.paceRatio.toFixed(3) + '</b> → raw dev <b>' + pct(g.paceRatio-1) + '</b>');
+    } else if (k === 'comp'){
+      h += How('Formula: <b>−(your price / weighted comp set − 1)</b>. Priced above the market → push down; below → push up.');
+      h += L('Your published price: <b>' + eur(g.myOnline) + '</b>');
+      h += L('Weighted comp set: <b>' + eur(g.compset) + '</b>');
+      h += L('Ratio: <b>' + g.compRatio.toFixed(3) + '</b> → raw dev <b>' + pct(-(g.compRatio-1)) + '</b>');
+    } else if (k === 'demand'){
+      h += How('Formula: <b>(searches − month median) / month median</b>. More searches than usual for this date = stronger demand.');
+      h += L('Searches today: <b>' + g.searches.toLocaleString('en-GB') + '</b>');
+      h += L('Month median: <b>' + g.median.toLocaleString('en-GB') + '</b>');
+      h += L('Raw dev: <b>' + pct((g.searches - g.median)/g.median) + '</b>');
+    } else if (k === 'market'){
+      h += How('Formula: <b>(market fill − your occupancy) × 0.80</b> with a <b>±5% deadband</b>. Market fuller than you → headroom to raise.');
+      h += L('Market booked: <b>' + (g.marketIdx*100).toFixed(1) + '%</b>');
+      h += L('Your occupancy: <b>' + (d.occ*100).toFixed(1) + '%</b>');
+      h += L('Gap: <b>' + pct(g.gap) + '</b>' + (g.within ? ' · inside deadband → neutralised' : ''));
+      h += L('Raw dev (gap × 0.80): <b>' + pct(g.within ? 0 : g.gap*0.80) + '</b>');
+    } else if (k === 'rev'){
+      h += How('Formula: <b>(your rating − comp set average) × 0.10</b>. Rated above the set → room to charge more; below → push down.');
+      h += L('Your rating: <b>' + g.myRating.toFixed(2) + '</b>');
+      h += L('Comp set average: <b>' + g.compRating.toFixed(2) + '</b>');
+      h += L('Gap: <b>' + (g.revGap >= 0 ? '+' : '−') + Math.abs(g.revGap).toFixed(2) + '</b> → raw dev <b>' + pct(g.revGap*0.10) + '</b>');
+    }
+    var dev = S.day.sig[k];
+    h += Fin(dev === null ? 'No signal today → weight redistributed to the other signals.'
+                          : 'Applied dev: <b>' + pct(dev) + '</b>');
+    return h;
+  }
+
+  /* ---------------------------- rendering ---------------------------- */
+  function renderProps(){
+    document.getElementById('props').innerHTML = PROPS.map(function(p){
+      return '<button class="pill' + (p.id === S.prop.id ? ' on' : '') + '" data-p="' + p.id + '" type="button">' + p.label + '</button>';
+    }).join('');
+    document.getElementById('props').querySelectorAll('.pill').forEach(function(b){
+      b.addEventListener('click', function(){
+        S.prop = PROPS.filter(function(p){ return p.id === b.dataset.p; })[0];
+        load(); renderProps();
+      });
+    });
+  }
+
+  function renderFront(){
+    var d = S.day, r = compute();
+    var dd = d.date;
+    document.getElementById('d-label').textContent = DOW[dd.getDay()] + ' ' + dd.getDate() + ' ' + MON[dd.getMonth()] + ' ' + dd.getFullYear();
+    document.getElementById('fday').innerHTML =
+      DOW[dd.getDay()] + ' ' + String(dd.getDate()).padStart(2,'0') + '/' + String(dd.getMonth()+1).padStart(2,'0') +
+      '<small>OTB ' + d.otb + '/' + d.units + ' · Base ' + eur(d.base) + ' · Last update ' + eur(d.lastUpdate) +
+      (d.event ? ' <span class="evt">· ' + d.event + '</span>' : '') + '</small>';
+
+    var rateEl = document.getElementById('rate');
+    rateEl.textContent = eur(r.price);
+    rateEl.classList.remove('bump'); void rateEl.offsetWidth; rateEl.classList.add('bump');
+
+    var pctChg = r.ref ? (r.price - r.ref) / r.ref : 0;
+    var dEl = document.getElementById('delta');
+    dEl.innerHTML = 'Last update ' + eur(r.ref) + ' → ' + eur1(r.price - r.ref) + ' (' + pct(pctChg) + ')';
+    dEl.style.color = col(r.price - r.ref);
+    dEl.style.background = (r.price - r.ref) >= 0 ? 'rgba(76,224,168,.12)' : 'rgba(255,77,157,.12)';
+
+    var occD = d.occ - d.occLy, adrD = (d.adr && d.adrLy) ? (d.adr - d.adrLy) / d.adrLy : null;
+    var pos = d.dbg.myOnline - d.dbg.compset;
+    document.getElementById('kpis').innerHTML =
+      kpi('Occupancy', (d.occ*100).toFixed(0) + '%', (occD>=0?'+':'−') + Math.abs(occD*100).toFixed(0) + ' pt vs LY', col(occD)) +
+      kpi('ADR on books', d.adr ? eur(d.adr) : '—', adrD === null ? 'no bookings yet' : pct(adrD) + ' vs LY', adrD === null ? 'var(--dim)' : col(adrD)) +
+      kpi('Recent pickup', d.dbg.pickupCount + ' bkg', d.dbg.pickupCount ? 'last 8 days' : 'no signal', d.dbg.pickupCount ? 'var(--green)' : 'var(--dim)') +
+      kpi('Price position', eur(d.dbg.myOnline), 'comp set ' + eur(d.dbg.compset) + ' (' + eur1(pos) + ')', col(pos));
+  }
+  function kpi(l, v, sub, c){
+    return '<div class="kpi"><div class="kl">' + l + '</div><div class="kv">' + v +
+           '</div><div class="kd" style="color:' + c + '">' + sub + '</div></div>';
+  }
+
+  function renderFactors(){
+    document.getElementById('facs').innerHTML =
+      FACTORS.map(function(f){
+        var na = S.day.sig[f.k] === null;
+        return '<div class="fac' + (na ? ' na' : '') + '">' +
+          '<div class="top"><span class="nm">' + f.name +
+            ' <button class="fac-i" type="button" data-k="' + f.k + '" aria-label="How this signal is computed">ⓘ</button>' +
+          '</span><span class="wv" id="w-' + f.k + '">' + Math.round(S.w[f.k]) + '</span></div>' +
+          '<div class="ds">' + f.ds + '</div>' +
+          '<div class="fac-note" id="n-' + f.k + '" style="display:' + (S.open[f.k] ? 'block' : 'none') + '">' + note(f.k) + '</div>' +
+          '<div class="fac-line"><span class="sig" id="s-' + f.k + '"></span><span class="fac-eur" id="e-' + f.k + '"></span></div>' +
+          '<input type="range" min="0" max="60" value="' + Math.round(S.w[f.k]) + '" data-k="' + f.k + '" aria-label="' + f.name + ' weight">' +
+        '</div>';
+      }).join('') +
+      '<div class="comp-row comp-base"><span class="cr-lbl">Base Price <small>· structural, per night</small></span><b class="cr-eur" id="c-base"></b></div>' +
+      '<div class="comp-row" id="c-lu-w"><span class="cr-lbl">Last update <small>· currently applied</small></span><b class="cr-eur" id="c-lu"></b></div>' +
+      '<div class="comp-row" id="c-ev-w"><span class="cr-lbl">Event Factor <small id="c-ev-sub"></small></span><b class="cr-eur" id="c-ev"></b></div>' +
+      '<div class="comp-row" id="c-fl-w" style="display:none"><span class="cr-lbl">Floor <small>· minimum rate</small></span><b class="cr-eur" id="c-fl"></b></div>' +
+      '<div class="comp-row comp-total"><span class="cr-lbl">Recommended rate</span><b class="cr-eur" id="c-tot"></b></div>';
+
+    document.getElementById('facs').querySelectorAll('input[type=range]').forEach(function(r){
+      r.addEventListener('input', function(){
+        setWeight(r.dataset.k, +r.value);
+        document.getElementById('facs').querySelectorAll('input[type=range]').forEach(function(o){
+          if (o !== r) o.value = Math.round(S.w[o.dataset.k]);
+        });
+        paint();
+      });
+    });
+    document.getElementById('facs').querySelectorAll('.fac-i').forEach(function(b){
+      b.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        var k = b.dataset.k, n = document.getElementById('n-' + k);
+        S.open[k] = !S.open[k];
+        n.style.display = S.open[k] ? 'block' : 'none';
+      });
+    });
+    paint();
+  }
+
+  function paint(){
+    var r = compute();
+    document.getElementById('wsum').textContent = Math.round(FACTORS.reduce(function(a,f){ return a + S.w[f.k]; }, 0)) + ' / 100';
+    FACTORS.forEach(function(f){
+      var dev = S.day.sig[f.k], c = r.contrib[f.k];
+      document.getElementById('w-' + f.k).textContent = Math.round(S.w[f.k]);
+      var sg = document.getElementById('s-' + f.k), eu = document.getElementById('e-' + f.k);
+      if (dev === null){
+        sg.textContent = 'no signal · weight redistributed'; sg.style.color = 'var(--dim)';
+        eu.textContent = '—'; eu.style.color = 'var(--dim)';
+      } else {
+        sg.textContent = 'signal ' + pct(dev); sg.style.color = col(dev);
+        eu.textContent = eur1(c); eu.style.color = col(c);
+      }
+    });
+    document.getElementById('c-base').textContent = eur(S.day.base);
+    document.getElementById('c-lu').textContent = eur(r.ref);
+    var ev = document.getElementById('c-ev'), evw = document.getElementById('c-ev-w');
+    ev.textContent = eur1(r.eventEur);
+    ev.className = 'cr-eur ' + cls(r.eventEur);
+    document.getElementById('c-ev-sub').textContent = S.day.event ? ('· ' + S.day.event + ' +6%') : '· no event';
+    evw.classList.toggle('soft', Math.abs(r.eventEur) <= 0.05);
+    var flw = document.getElementById('c-fl-w');
+    if (r.atFloor){ flw.style.display = ''; document.getElementById('c-fl').textContent = eur1(r.floorEur); }
+    else flw.style.display = 'none';
+    document.getElementById('c-tot').textContent = eur(r.price);
+    renderFront();
+  }
+
+  function load(){
+    S.day = buildDay(S.prop, S.offset);
+    S.open = {};
+    renderFactors();
+  }
+
+  /* ---------------------------- interaction ---------------------------- */
+  var flip = document.getElementById('flip');
+  document.getElementById('to-back').addEventListener('click', function(e){ e.stopPropagation(); flip.classList.add('flipped'); });
+  document.getElementById('to-front').addEventListener('click', function(e){ e.stopPropagation(); flip.classList.remove('flipped'); });
+  document.getElementById('face-front').addEventListener('click', function(){ flip.classList.add('flipped'); });
+  document.getElementById('reset').addEventListener('click', function(e){
+    e.stopPropagation(); S.w = Object.assign({}, DEFAULT_W); renderFactors();
+  });
+
+  function go(step){
+    S.offset = Math.max(0, Math.min(59, S.offset + step));
+    flip.classList.remove('flipped');
+    load();
+  }
+  document.getElementById('d-prev').addEventListener('click', function(){ go(-1); });
+  document.getElementById('d-next').addEventListener('click', function(){ go(1); });
+  document.addEventListener('keydown', function(e){
+    var host = document.getElementById('rms');
+    if (!host || !host.classList.contains('on')) return;   // only when the Lab is on screen
+    if (e.key === 'ArrowLeft') go(-1);
+    if (e.key === 'ArrowRight') go(1);
+  });
+
+  // horizontal swipe on the card = change day
+  var x0 = null, y0 = null, decided = false, horiz = false;
+  flip.addEventListener('touchstart', function(e){
+    var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; decided = false; horiz = false;
+  }, {passive:true});
+  flip.addEventListener('touchmove', function(e){
+    if (x0 === null) return;
+    var t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    if (!decided && (Math.abs(dx) > 8 || Math.abs(dy) > 8)){ decided = true; horiz = Math.abs(dx) > Math.abs(dy); }
+    if (horiz && !flip.classList.contains('flipped')){
+      flip.classList.add('dragging');
+      flip.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx * 0.02) + 'deg)';
+    }
+  }, {passive:true});
+  flip.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var t = e.changedTouches[0], dx = t.clientX - x0;
+    flip.classList.remove('dragging'); flip.style.transform = '';
+    if (horiz && Math.abs(dx) > 60) go(dx < 0 ? 1 : -1);
+    x0 = y0 = null;
+  });
+
+  renderProps(); load();
 })();
 
 </script>
