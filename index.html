@@ -267,6 +267,10 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--ambe
 .rmslab .rankbar{display:flex;gap:4px;margin:6px 0 6px}
 .rmslab .rankbar i{flex:1;height:7px;border-radius:3px;background:#0A1524;border:1px solid var(--grid)}
 .rmslab .rankbar i.on{background:var(--neon);border-color:var(--neon);box-shadow:0 0 10px rgba(53,208,255,.5)}
+.rmslab .deck-head .arw[disabled]{opacity:.3;cursor:not-allowed;border-color:var(--grid)}
+.rmslab .deck-head .arw[disabled]:hover{border-color:var(--grid)}
+.rmslab .dlabel .is-today{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--amber);margin-left:6px}
 .rmslab .rk-legend{font-family:var(--mono);font-size:9px;color:var(--dim);opacity:.7;margin-top:3px;line-height:1.35}
 .rmslab html{min-height:100%}
 .rmslab .demochip{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
@@ -1162,7 +1166,7 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   }
   function clamp(v){ return Math.max(-0.5, Math.min(0.5, v)); }
 
-  var S = { prop:PROPS[0], offset:2, w:Object.assign({}, DEFAULT_W), day:null, open:{} };
+  var S = { prop:PROPS[0], offset:0, w:Object.assign({}, DEFAULT_W), day:null, open:{} };
 
   var eur  = function(v){ return '€' + Math.round(v); };
   var eur1 = function(v){ return (v < -0.05 ? '−' : '+') + '€' + Math.abs(v).toFixed(1); };
@@ -1274,7 +1278,11 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   function renderFront(){
     var d = S.day, r = compute();
     var dd = d.date;
-    document.getElementById('d-label').textContent = DOW[dd.getDay()] + ' ' + dd.getDate() + ' ' + MON[dd.getMonth()] + ' ' + dd.getFullYear();
+    document.getElementById('d-label').innerHTML = DOW[dd.getDay()] + ' ' + dd.getDate() + ' ' + MON[dd.getMonth()] + ' ' + dd.getFullYear() +
+      (S.offset === 0 ? ' <small class="is-today">today</small>' : '');
+    var prevBtn = document.getElementById('d-prev');
+    prevBtn.disabled = (S.offset === 0);            // never before today
+    prevBtn.setAttribute('aria-disabled', S.offset === 0 ? 'true' : 'false');
     document.getElementById('fday').innerHTML =
       DOW[dd.getDay()] + ' ' + String(dd.getDate()).padStart(2,'0') + '/' + String(dd.getMonth()+1).padStart(2,'0') +
       '<small>OTB ' + d.otb + '/' + d.units + ' · Base ' + eur(d.base) + ' · Last update ' + eur(d.lastUpdate) +
