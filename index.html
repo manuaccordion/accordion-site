@@ -589,6 +589,26 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
 .rx-result:hover{transform:translateY(-4px) scale(1.03);box-shadow:0 0 0 1px rgba(53,208,255,.3),0 26px 54px -22px rgba(53,208,255,.8)}
 .rx-chip:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:0 0 0 1px rgba(56,210,255,.18),0 18px 36px -22px rgba(56,210,255,.55)}
 .rx-chip:hover .cn{color:var(--neon-soft)}
+
+/* rx- vertical list (readable) */
+.rx-list{max-width:900px;margin:0 auto 46px;display:flex;flex-direction:column;gap:12px}
+.rx-item{display:flex;align-items:flex-start;gap:20px;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--grid);border-left:3px solid var(--neon-dim);border-radius:6px;padding:20px 22px;text-align:left;transition:border-color .18s,transform .18s,box-shadow .25s}
+.rx-item:hover{border-color:var(--neon);border-left-color:var(--neon);transform:translateX(4px);box-shadow:0 0 0 1px rgba(56,210,255,.15),0 18px 40px -26px rgba(56,210,255,.5)}
+.rx-item .rx-n{flex:0 0 auto;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-family:var(--px);font-size:13px;color:var(--neon);background:#0A1524;border:2px solid var(--grid);border-radius:8px;box-shadow:0 0 16px rgba(56,210,255,.22),inset 0 0 12px rgba(56,210,255,.08)}
+.rx-item .rx-b{flex:1;min-width:0}
+.rx-item h4{font-family:var(--body);font-weight:800;font-size:18px;line-height:1.22;letter-spacing:-.01em;color:var(--txt);margin:3px 0 6px}
+.rx-item p{font-size:14.5px;color:var(--dim);line-height:1.6;margin:0}
+@media(max-width:560px){.rx-item{gap:14px;padding:16px}.rx-item .rx-n{width:44px;height:44px;font-size:11px}}
+
+/* rx- emphasis pills (top of RMS) */
+.rx-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:2px auto 40px;max-width:820px}
+.rx-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--neon);background:rgba(53,208,255,.08);border:1px solid var(--neon-dim);border-radius:999px;padding:11px 18px;box-shadow:0 0 22px -8px rgba(56,210,255,.55);transition:transform .15s,box-shadow .2s,border-color .2s}
+.rx-tag:hover{transform:translateY(-2px);border-color:var(--neon);box-shadow:0 0 26px -6px rgba(56,210,255,.75)}
+.rx-tag b{color:var(--amber);font-weight:400}
+
+/* rx- hero strapline (strong) */
+.rx-hero{font-family:var(--body);font-weight:800;font-size:clamp(24px,4.2vw,46px);line-height:1.12;letter-spacing:-.02em;text-align:center;color:var(--txt);margin:14px auto 22px;max-width:22ch}
+.rx-hero .g{color:var(--neon);text-shadow:0 0 26px rgba(56,210,255,.5)}
 </style>
 </head>
 <body>
@@ -681,18 +701,19 @@ footer{border-top:2px solid var(--grid);padding:22px 0;margin-top:10px}
   <!-- RMS LAB -->
   <section class="screen" id="rms">
     <div class="shead"><span class="badge">Coming soon</span><h2 class="h2">Bonus stage: RMS Lab</h2></div>
+    <p class="rx-hero">Transparent by design.<br><span class="g">Simple to use — and to explain.</span></p>
     <p class="lead">A revenue management system for short-term rental apartments (STR), with an algorithm you can actually understand. Bookings move the price, not your competitors — and every euro is explained.</p>
 
     <div class="rx-wrap">
       <p class="rx-kicker">Seven things that make it different</p>
-      <div class="rx-things">
-        <div class="rx-card"><div class="rx-num">01</div><h4>Calculated, not copied</h4><p>The base isn't the market average. It's the median of what comparable nights actually earned — grown to your target, capped by your position vs competitors, never below your floor.</p></div>
-        <div class="rx-card"><div class="rx-num">02</div><h4>Bookings move it, not rivals</h4><p>It reads what's actually booking for that night against the same point last year on revenue. Competitors never push you up — they can only slow a rise.</p></div>
-        <div class="rx-card"><div class="rx-num">03</div><h4>Built for small properties</h4><p>Three or nine rooms give one night too few bookings, so it also reads the nights around it — a signal where the big RMS see nothing.</p></div>
-        <div class="rx-card"><div class="rx-num">04</div><h4>Every euro, in words</h4><p>For any date: which median, how many bookings moved it, what held it back, how far from what you loaded. No score, no black box.</p></div>
-        <div class="rx-card"><div class="rx-num">05</div><h4>Nothing to tune</h4><p>No five factors with percentages to balance. Each rule reads on its own — and can be switched off by itself.</p></div>
-        <div class="rx-card"><div class="rx-num">06</div><h4>It never chases itself</h4><p>The suggestion always starts from the base price, never from what you last loaded. Your price only measures the distance.</p></div>
-        <div class="rx-card rx-wide"><div class="rx-num">07</div><h4>Comp set — not a flat average</h4><p>Most systems line up competitor prices and weigh them all the same, then admit not every rival is comparable. Here each competitor counts as much as you decide and carries the position you want to hold against it — so &quot;where the market sits&quot; reflects the rivals that actually matter to you. How we turn that into a number stays under the hood.</p></div>
+      <div class="rx-list">
+        <div class="rx-item"><div class="rx-n">01</div><div class="rx-b"><h4>Calculated, not copied</h4><p>The base isn't the market average. It's the median of what comparable nights actually earned — grown to your target, capped by your position vs competitors, never below your floor.</p></div></div>
+        <div class="rx-item"><div class="rx-n">02</div><div class="rx-b"><h4>Bookings move it, not rivals</h4><p>It reads what's actually booking for that night against the same point last year on revenue. Competitors never push you up — they can only slow a rise.</p></div></div>
+        <div class="rx-item"><div class="rx-n">03</div><div class="rx-b"><h4>Built for small properties</h4><p>Three or nine rooms give one night too few bookings, so it also reads the nights around it — a signal where the big RMS see nothing.</p></div></div>
+        <div class="rx-item"><div class="rx-n">04</div><div class="rx-b"><h4>Every euro, in words</h4><p>For any date: which median, how many bookings moved it, what held it back, how far from what you loaded. No score, no black box.</p></div></div>
+        <div class="rx-item"><div class="rx-n">05</div><div class="rx-b"><h4>Nothing to tune</h4><p>No five factors with percentages to balance. Each rule reads on its own — and can be switched off by itself.</p></div></div>
+        <div class="rx-item"><div class="rx-n">06</div><div class="rx-b"><h4>It never chases itself</h4><p>The suggestion always starts from the base price, never from what you last loaded. Your price only measures the distance.</p></div></div>
+        <div class="rx-item"><div class="rx-n">07</div><div class="rx-b"><h4>Comp set — not a flat average</h4><p>Most systems line up competitor prices and weigh them all the same, then admit not every rival is comparable. Here each competitor counts as much as you decide and carries the position you want to hold against it — so &quot;where the market sits&quot; reflects the rivals that actually matter to you. How we turn that into a number stays under the hood.</p></div></div>
       </div>
     </div>
     <div class="rx-wrap">
